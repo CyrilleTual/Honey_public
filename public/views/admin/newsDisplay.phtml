@@ -1,0 +1,63 @@
+<?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
+
+    <h1>Gestion des news </h1>
+    <?php require_once('./public/views/errors.inc.phtml'); ?>
+    <div class="modal-window">
+      
+    </div>
+
+    <p> <a class="bouton" href="index.php?route=news&action=displayFormAddNews">ajouter une news</a> Au minimum une information S.V.P. </p>
+
+
+    <table class='catalog'>
+        <thead>
+            <tr>
+                <th>titre</th>
+                <th>texte</th>
+                <th>image</th>
+                <th>date</th>
+                <th>statut</th>
+                <th></th>
+                <th></th>
+               
+            </tr>
+        </thead>
+
+
+        <tbody>
+            <?php foreach ($data['input']['values'] as $key => $valeur) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($valeur["title"]); ?> </td>
+                    <td><?= htmlspecialchars($valeur["text"]); ?></td>
+
+                    <!-- condition si pas de photo -->
+                    <?php if ((($valeur['picture'])) !== '') : ?>
+                        <td class="modal-trigger"><img class="vignette" src=' public/uploads/<?= htmlspecialchars(($valeur['picture']),false); ?>' alt=" produit">
+                        </td>
+
+                    <?php else : ?>
+                        <td></td>
+                    <?php endif; ?>
+                    <!-- fin traitement affichage  photo -->
+
+
+                    <td><?= htmlspecialchars($valeur["status"]); ?> </td>
+                    <td><?= htmlspecialchars($valeur["date"]); ?></td>
+                    <td>
+                        <a class="bouton" href="?route=news&action=modifyNews&id=<?= htmlspecialchars(($valeur['id_news']),false); ?>">Modifier</a>
+                    </td>
+                    <td>
+                        <form class="formDelete" action="?route=news&action=deleteNews" method="post">
+                            <input type="hidden" name="token" value="<?= htmlspecialchars($data['input']['token'][$valeur['id_news']]); ?>">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($valeur['id_news']); ?>">
+                            <input type="button" class="bouton" value="supprimer">
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php else : ?>
+    <h2> Affichage non autorisé </h2>
+<?php endif; ?>

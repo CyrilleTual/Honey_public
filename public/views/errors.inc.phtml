@@ -1,0 +1,12 @@
+<?php if (isset($errors) && count($errors) > 0) : ?>
+    <div id="messagesErrors" class="message">
+        <div>
+            <img src="public/medias/img/warning.gif" alt="Warning" class="" />
+            <ul>
+                <?php foreach ($errors as $error) : ?>
+                    <li><?= $error; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>

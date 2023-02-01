@@ -1,0 +1,135 @@
+<div class="background">
+    <div class="headerHaut wrapper">
+        <img class="alv" src="./public/medias/img/alveole_fond_transparent.png" alt="alveoles stylisées">
+        <div class="logoEtTitre">
+            <a href="index.php?route=homePage&action=init" class="txtEtLogo">
+                <img class="imgLogo" src="public/medias/img/logopng.png" alt="logo">
+                <span>Vincent Petit Apiculteur</span>
+            </a>
+        </div>
+        <img class="alv" src="./public/medias/img/alveole_fond_transparent.png" alt="alveoles stylisées">
+        <?php if (isset((($_SESSION['user'])['firstName'])) && (!empty($_SESSION['user']))) : ?>
+            <div class="welcome">
+                <p>Bienvenue <?= htmlspecialchars((($_SESSION['user'])['firstName'])); ?> <?= htmlspecialchars((($_SESSION['user'])['lastName'])); ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+
+
+<nav class="navbar wrapper">
+
+    <div id="hamburger" class="hamburglar icon ">
+
+        <div class="burger-icon">
+            <div class="burger-container">
+                <!-- les 3span représentent les 3 traits -->
+                <span class="burger-bun-top"></span>
+                <span class="burger-filling"></span>
+                <span class="burger-bun-bot"></span>
+            </div>
+        </div>
+
+        <!-- cercle svg autour des 3 traits horizontaux  -->
+        <div class="burger-ring">
+            <svg class="svg-ring">
+                <path class="path" fill="none" stroke="#191919" stroke-miterlimit="10" stroke-width="4" d="M 34 2 C 16.3 2 2 16.3 2 34 s 14.3 32 32 32 s 32 -14.3 32 -32 S 51.7 2 34 2" />
+                <!-- M-> Move , C, S -> Curve Etc... -->
+            </svg>
+        </div>
+
+        <!-- ce path "mask" permet l'animation du cercle  -->
+        <svg class="svgZero">
+            <mask id="mask">
+                <path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ff0000" stroke-miterlimit="10" stroke-width="4" d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4" />
+            </mask>
+        </svg>
+
+        <div class="path-burger">
+            <div class="animate-path">
+                <div class="path-rotation"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow displayNone"></div>
+
+    <ul class="nav-menu displayNone">
+        <li class="nav-item">
+            <a href="index.php?route=homePage&action=init">Home</a>
+        </li>
+        <!--  **************   Liste dynamique des listes disponibles ****************************  -->
+        <li class="nav-item"><a class="pos" href=#>+ Nos produits + </a>
+            <ul class="dropdownOnHover">
+                <li class="drop-item">
+                    <a href="index.php?route=products&action=displayProductsOfAllCats"> Tout Voir </a>
+                </li>
+                <?php foreach ($data['categories'] as $key => $valeur) : ?>
+                    <li class="drop-item">
+                        <a href="index.php?route=products&action=displayProductsOfOneCategory&cat=<?= htmlspecialchars($valeur["id_category"]); ?>"><?= htmlspecialchars($valeur["categoryName"]); ?> </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+            <a href="?view=zoom">Curieux? </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="?view=pointsVente">Points de vente</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="?view=aPropos">Me découvrir</a>
+        </li>
+
+        <!-- *********************************************************************************************** -->
+
+        <?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin') : ?>
+            <li class="nav-item"><a class="pos" href=#>Administration + </a>
+                <ul class="dropdownOnHover">
+                    <li class="drop-item">
+                        <a href="index.php?route=products&action=displayFormProducts"> Gestion des produits </a>
+                    </li>
+                    <li class="drop-item">
+                        <a href="index.php?route=carouselsPics&action=displayFormPicsSlider">Gestion carroussel</a>
+                    </li>
+                    <li class="drop-item">
+                        <a href="index.php?route=news&action=displayFormNews">Gestion des news</a>
+                    </li>
+                    <li class="drop-item">
+                        <a href="index.php?route=user&action=displayFormAdminUsers"> Gestion des utilisateurs </a>
+                    </li>
+                </ul>
+            </li>
+        <?php endif ?>
+
+        <?php if (isset((($_SESSION['user'])['firstName'])) && (!empty($_SESSION['user']))) : ?>
+            <li class="nav-item"><a href="?route=User&action=logoutUser">LogOut</a></li>
+        <?php endif; ?>
+
+        <!-- pour évolution du site vers la possibilité de commande en ligne -->
+
+        <!-- ?php else : ?>
+        <li class="nav-item"><a href="?route=user&action=displayFormRegister">register </a></li>
+        <li class="nav-item"><a href="?route=user&action=displayFormConnect"> login </a></li>
+        ?php endif ?> -->
+
+        <!-- pour évolution du site vers la possibilité de commande en ligne -->
+        <!-- <li class="nav-item">
+        <label for="btn2" class="show">Mon compte +</label>
+        <input type="checkbox" id="btn2">
+        <ul class="dropdown">
+            <li class="drop-item">
+                <a href="#">Mon Profil</a>
+            </li>
+            <li class="drop-item">
+                <a href="#">Articles</a>
+            </li>
+        </ul>
+        </li> -->
+
+    </ul>
+</nav>

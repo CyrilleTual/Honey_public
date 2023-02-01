@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+// couleurs 
+$color-1:rgba(255,255,255,1);
+$color-2:rgba(220,220,220,0.8);
+$color-3:rgba(240, 200, 16, 1); // couleur des alvéoles
+$color-4:rgba(237,237,237,1); // fond principal 
+$color-5:rgba(248,251,254, 1); // boutons de nav
+$color-6:rgba(76, 158, 29, 1);
+//$color-miel:rgba(215,198,18,1);
+
+
+$color-success: green;
+$color-error: red;
+$color-info: blue;
+$color-link: rgba(13,94,150,1);
+
+// $primary: #907dda;
+// $accent: #e5e4ea;
+// $font-light: #e7e6f1;
+$font-dark: rgba(79,79,79,1);
+
+// pour les padding standard 
+$pad: 2rem;
+
+$fontLogo: 'Montserrat', sans-serif;;
+
+$policeSize: (
+  logo: 3rem,
+  basic: 1.6rem, 
+  grosTitre: 3rem,
+  moyenTitre: 2.5rem,
+  petitTitre: 2rem
+);
+
+$breakPoints: (
+  small: 576px,
+  // mode small jusqu'à 576px
+  mobile: 768px,
+  // mode mobile jusqu'à 768px
+  tablet: 1024px,
+  // mode tablet jusqu'à 1024 px
+);
+
+// utilisation :  font-size: map-get($policeSize, body);

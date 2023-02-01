@@ -1,0 +1,61 @@
+<!-- $token = $data['input'][0]; -->
+<?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
+
+    <h1> visualisation des produits</h1>
+    <a class="bouton" href="index.php?route=products&action=displayFormAddProducts">Ajout produit</a>
+
+    <div class="modal-window">
+    </div>
+
+    <table class='catalog'>
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Categorie</th>
+                <th>Nom</th>
+                <th>Teaser</th>
+                <th>Description</th>
+                <th>Infos</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+            <?php foreach ($data['input'][1] as $key => $valeur) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($valeur["productRef"]); ?> </td>
+                    <td><?= htmlspecialchars($valeur["categoryName"]); ?></td>
+                    <td><?= htmlspecialchars($valeur["productName"]); ?></td>
+                    <td><?= nl2br((htmlspecialchars($valeur["teaser"])), false); ?></td>
+                    <td><?= nl2br((htmlspecialchars($valeur["description"])), false); ?></td>
+                    <td><?= htmlspecialchars($valeur["infos"]); ?></td>
+
+                    <?php if (($valeur['picture']) !== 'default.png') : ?>
+                        <td>
+                            <span class="modal-trigger">
+                                <img class="vignette" src='public/uploads/<?= htmlspecialchars($valeur['picture']); ?>' alt="htmlspecialchars($valeur['productName']">
+                            </span>
+                        </td>
+                    <?php else : ?>
+                        <td><img class="vignette" src='public/uploads/<?= htmlspecialchars($valeur['picture']); ?>' alt="htmlspecialchars($valeur['productName']">
+                        </td>
+                    <?php endif; ?>
+
+                    <td>
+                        <a class="bouton" href="?route=Items&action=displayItems&id=<?= htmlspecialchars($valeur['id_product']); ?>">Items</a>
+                    </td>
+                    <td>
+                        <a class="bouton" href="?route=Products&action=editProduct&id=<?= htmlspecialchars($valeur['id_product']); ?>">Modifier</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php else : ?>
+    <h2> Affichage non autorisé </h2>
+<?php endif; ?>

@@ -1,0 +1,40 @@
+<h1>Création d'un compte !</h1>
+<?php require_once('errors.inc.phtml'); ?>
+
+<form class="tablo" action="?route=user&action=register" method="POST">
+
+    <fieldset>
+
+        <legend>Merci de renseigner les information suivantes :</legend>
+
+        <input id="token" name="token" type="hidden" value="<?= $data['input'] ?>">
+
+        <label for="firstname">Entrez votre prénom</label>
+        <input type="text" name="firstname" value="<?php echo (isset($_POST['firstname'])) ? ($_POST['firstname']) : ""; ?>"><br>
+
+        <!-- entre 2 et 30 caractères - pattern : lettres, espaces, tirets et apostrophes -->
+        <label for="lastname">Entrez votre nom</label>
+        <input type="text" name="lastname" value="<?php echo (isset($_POST['lastname'])) ? ($_POST['lastname']) : ""; ?>"><br>
+
+        <label for="email">Entrez votre email</label>
+        <input type="text" name="email" value="<?php echo (isset($_POST['email'])) ? ($_POST['email']) : ""; ?>"><br>
+
+        <label for="password">Choisissez un mot de passe</label>
+        <input type="password" name="password" id="pwd1">
+
+        <span class="seePass"><i class="fa-solid fa-eye-slash"></i><i class="fa-solid fa-eye"></i></span>
+
+        <br>
+
+        <label for="password_verify">Confirmez le mot de passe choisi</label>
+        <input type="text" name="passwordConfirm" id="pwd2"><br>
+
+        <input type="submit" value="Valider" /> <br>
+
+
+    </fieldset>
+
+
+
+
+</form>

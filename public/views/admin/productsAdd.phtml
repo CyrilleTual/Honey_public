@@ -1,0 +1,56 @@
+<?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
+
+    <h1> Formulaire Produits </h1>
+
+    <?php require_once('public/views/errors.inc.phtml'); ?>
+
+    <form method="post" enctype="multipart/form-data" action=" ?route=Products&action=AddOrModifyProductProcess">
+
+
+        <input id="token" name="token" type="hidden" value="<?= $data['input'][0] ?>">
+
+        <label for="category">Categorie</label>
+
+        <select name="category" id="category">
+            <?php foreach ($data['input'][1] as $key => $valeur) : ?>
+                <option value="<?= htmlspecialchars($valeur["id_category"]); ?>"><?= htmlspecialchars($valeur["categoryName"]); ?></option>
+            <?php endforeach; ?>
+        </select><br>
+
+        <label for="productName">Nom du produit</label>
+        <input type="text" id="productName" name="productName" maxlength="100" placeholder="le nom du produit" required><br>
+
+        <label for="reference">Reférence</label>
+        <input type="text" id="reference" name="reference" maxlength="50" placeholder="la référence de produit" required><br>
+
+        <label for="teaser">Description courte</label>
+        <input type="text" id="teaser" name="teaser" maxlength="255" placeholder="description courte"> <br><br>
+
+        <label for="description">Description</label>
+        <textarea name="description" id="description" maxlength="2000" placeholder="la description du produit"></textarea><br>
+
+        <label for="infos">Infos</label>
+        <input type="text" id="infos" name="infos" maxlength="150" placeholder="infos"> <br>
+
+        <label for="uploadImage">Photo</label>
+        <!-- attention ecoute d'évenement sur l'input pour le preview  -->
+        <input type="file" id="uploadImage" name="picture"><br>
+
+        <fieldset>
+            <legend>Produit actif? </legend>
+            <label class="radio" for="actif">Actif</label>
+            <input type="radio" id="actif" name="status" value="actif" checked>
+            <label class="radio" for="actif">Inactif</label>
+            <input type="radio" id="inactif" name="status" value="inactif">
+        </fieldset>
+
+        <div class="preview">
+        </div>
+
+        <input type="submit" value="enregistrement">
+
+    </form>
+
+<?php else : ?>
+    <h2> Affichage non autorisé </h2>
+<?php endif; ?>

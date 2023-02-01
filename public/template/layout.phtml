@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vincent Petit, apiculteur, éleveur de ses abeilles assure aussi la production artisanale de ses miels et de
+    produits dérivés: aromiels, pains d'épices, nougats et billes de miel. ">
+    <title>Vincent Petit Apiculteur</title>
+    <link rel="icon" href="public/medias/img/favicon_miel.ico">
+    <!-- <link rel="icon" type="image/svg+xml" href="public/medias/img/logosvg.svg"> -->
+    <!-- <link rel="icon" type="image/png" href="public/medias/img/logopngfavicon.png">
+    <link rel="icon" type="image/png" href="public/medias/img/faviconmiel.png"> -->
+
+    <!-- slider -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="public/styles/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="public/styles/slick/slick-theme.css">
+    <!-- css perso -->
+    <link rel="stylesheet" href="public/styles/css/style.css">
+</head>
+
+<body>
+    <header>
+        <?php require "public/views/header.inc.phtml" ?>
+    </header>
+
+
+    <main>
+        <?php if (isset($_SESSION['message'])) : ?>
+            <div class="message">
+                <?= $_SESSION['message']; ?>
+                <?php unset($_SESSION['message']) ?>
+            </div>
+        <?php endif; ?>
+        <?php require "public/views/$view.phtml" ?>
+    </main>
+
+    <footer>
+        <?php require "public/views/footer.inc.phtml" ?>
+    </footer>
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.3.js"></script> -->
+
+    <!-- pour le slider -->
+    <script src="public/js/jquery-3.6.3.min.js"></script>
+    <script src="public/js/jquery-migrate-3.4.0.min.js"></script>
+    <script src="public/js/slick.min.js"></script>
+    <!-- perso -->
+    <script src="public/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+%center-el {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+%text-box {
+  text-align: left;
+  padding : $pad;
+	border-radius: $pad;	
+	background-color: $color-1;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+%allfilled{
+  grid-template-rows: auto 1fr auto;  // permet d'occuper 100% de la hauteur visible
+	justify-items: center;
+}
+
+// %fond {
+// 	background-image: 
+//       linear-gradient(
+//         rgba(255,255,255, 1,), 
+//         rgba(255,255,255, 1,)
+//       ), 
+//       /*Applique un filtre noir sur l'image*/
+//       //url("../../medias/img/alveoles.jpeg");
+//       //url("../../medias/img/fond_nature.jpg");
+//       //url("https://images.unsplash.com/photo-1593476366803-cff071151082?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80");
+//       background-size: cover;
+//       background-position: center bottom; 
+// }
+
+
+
+// utilisation : @extend %center-el;

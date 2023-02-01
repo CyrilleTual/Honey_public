@@ -1,0 +1,61 @@
+<?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
+
+    <h1> Formulaire News </h1>
+
+    <div class="modal-window">
+        <img id="largePic" alt="grande image">
+    </div>
+
+    <?php require_once('public/views/errors.inc.phtml'); ?>
+    <!-- Affichage de l'image si modification -->
+    <?php if (isset($data['input']['new']) && ($data['input']['new']['picture']) !== "") : ?>
+        <span class="modal-trigger">
+            <img class="vignette" src=' public/uploads/<?= htmlspecialchars($data['input']['new']['picture']); ?>' alt="image" />
+        </span>
+
+    <?php endif; ?>
+
+    <form method="post" enctype="multipart/form-data" action=" ?route=news&action=AddOrModifyNews">
+
+        <input id="token" name="token" type="hidden" value="<?= htmlspecialchars($data['input']['token']) ?>">
+
+        <label for="titre">Titre</label>
+        <input type="text" name="title" id="titre" maxlength="100" placeholder=" titre " required value="<?php echo (isset($data['input']['new']['title'])) ? htmlspecialchars($data['input']['new']['title']) : ""; ?>">
+        <br>
+
+
+        <label for="texte">Texte</label>
+        <textarea name="text" id="text" placeholder="texte" maxlength="2500" cols="60" rows="20"><?php echo (isset($data['input']['new']['text'])) ? htmlspecialchars($data['input']['new']['text']) : ""; ?></textarea><br>
+
+
+        <label for="picture">Photo</label>
+        <input type="file" id="uploadImage" name="picture"><br>
+
+        <?php if (isset($data['input']['new'])) : ?>
+            <!-- on recupère l'id de la photo si modif -->
+            <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($data['input']['new']["id_news"]); ?>">
+            <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
+            <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input']['new']['picture']); ?>">
+        <?php endif; ?>
+
+        <fieldset>
+            <legend>News active? </legend>
+            <label class="radio" for=" actif">Actif</label>
+            <input type="radio" id="actif" name="status" value="actif" checked>
+            <label class="radio" for="actif">Inactif</label>
+            <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['new'])) && ($data['input']['new']['status']) === ("inactif")) echo "checked"; ?>>
+        </fieldset>
+
+        <div class="preview">
+            <img id="uploadPreview">
+        </div>
+        <input type="submit" value="enregistrement">
+    </form>
+    <div>
+        <a class="bouton" href="index.php?route=news&action=displayFormNews">Retour</a>
+    </div>
+
+
+<?php else : ?>
+    <h2> Affichage non autorisé </h2>
+<?php endif; ?>

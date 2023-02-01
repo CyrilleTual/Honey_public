@@ -1,0 +1,23 @@
+<!-- si besion pour commande token = $data['input'][0] -->
+
+<div class="pageProductPublic">
+    <h1><?= htmlspecialchars($data['input'][2]['categoryName']); ?></h1>
+
+    <!-- Dans le cas de visualisation des tous les produits -> possibilté de recherche  -->
+    <div >
+        <?php if (htmlspecialchars($data['input'][2]['categoryName']) == "Tous les produits") : ?>
+            <p class="find"> Vous cherchez quelque chose ?   
+                <input type="text" id="searchProduct">
+            </p>
+        <?php endif; ?>
+    </div>
+
+
+    <!-- la div suivante est aussi la cible d'une requête ajax et l'include est là pour la 
+    peupler si pas de recherche  -->
+
+    <div id="targetSearchProduct" class="contArticles wrapper">
+        <?php include "public/views/displayProductsDetails.phtml" ?>
+    </div>
+
+</div>

@@ -1,0 +1,429 @@
+@import "../sass/_reset";
+
+@import "../sass/_variables";
+@import "../sass/_placeholders";
+@import "../sass/_mixins";
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;  // permet d'occuper 100% de la hauteur visible
+	//line-height: 1;
+	font-size: map-get($policeSize, basic);
+}
+
+h1{
+	font-size: map-get($policeSize, grosTitre);
+	text-align: center;
+}
+
+h2{
+	font-size: map-get($policeSize, moyenTitre);
+}
+
+a{
+	text-decoration: none;
+	color: $color-1;
+}
+
+header, footer {
+
+	background-image: 
+		linear-gradient(
+        rgba(255,255,255,0), 
+    	rgba(255,255,255,0.5), 
+     	),
+		url("../../medias/img/bg_header1.jpeg");
+	background-size: cover;
+  	background-position: center bottom;
+	min-width: 100%;
+	min-height: 20px;
+	color: $color-1;
+	padding: 10px;
+	text-align: center;
+}
+
+main {	
+	position: relative;
+	margin: 0 auto;
+	position: 0, 0;
+	max-width: 1024px;
+	line-height: 1.8;
+	background-color: $color-1;
+	@extend %flex-center;
+	flex-direction: column;
+	background-color: navy;
+
+
+}
+
+.vignette{
+	display: block;
+	height: 100px;
+	object-fit: contain;
+	margin: auto;
+	cursor: pointer;
+}
+
+
+/**
+** Mise en forme lien comme un bouton
+**/
+a.bouton {
+	text-decoration: none;
+	padding: 5px 5px;
+	background-color: $color-2; 
+	color: white;
+	border: 1px solid gray;
+	border-style:inset;
+	border-radius: 12px;
+	border: 2px solid #46a28d;
+		&:hover{
+			background-color: yellow;
+			color:red;
+		}
+}
+
+
+
+/*******************************************************
+**  Logo et titre dans le header
+**/
+
+.logoEtTitre{
+	
+	.txtLogo{
+	 color: black;
+    font-size: 4rem;
+	}
+	.imgLogo{
+	vertical-align: middle;
+	width: 70px;
+	margin: 20px;
+	
+	}
+}
+	
+.icon{
+    fill: black;
+	margin-right: 0px;
+    cursor: pointer;
+	position : fixed;
+	top: 20px;
+	right: 10px;
+}
+
+/*******************************************************
+**  Navbar
+**/
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+}
+
+
+
+.navbar input, .nav-menu, .dropdown{
+    display: none;
+	z-index: 50;
+	 
+}
+// quand on click sur le burger
+[id^=btn]:checked + ul{
+    display: block;
+}
+
+.nav-menu{
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+}
+
+.nav-item a, .drop-item a, .show{
+    color: white;
+	padding: 0 10px;
+    text-decoration: none;
+	background-color: $color-2;
+    font-size: 1.4rem;
+	border-style:inset;
+	border-radius: 12px;
+	border: 2px solid #46a28d;
+	 /* This flexbox code stretches the link's clickable 
+   	* area to fit its parent block. */
+	display:        flex;
+	flex-grow:      1;
+	flex-shrink:    1;
+	justify-content: center;
+	
+}
+
+.pos{
+	position: relative;
+}
+
+.navbar li { 
+    position: relative;
+		flex-grow: 1;
+		flex-shrink: 0;
+		height: 30px;
+		
+		font-size: 1.8rem;
+		text-align: center;
+		text-transform: uppercase;
+		line-height: 30px;
+		letter-spacing: 1px;
+		color: $color-5;
+}
+
+
+li:hover{  
+			ul.dropdownOnHover{
+        		
+				display: block;					
+    		}	
+		}
+
+// drop down au suvol ////////
+ ul.dropdownOnHover{
+		background-color: $color-6;
+		display : none;
+		color: $font-dark;
+		z-index: 100;
+		width: max-content;
+		position:absolute;
+		top: 0px; left: 50%;
+		transform: translateX(50%);
+	}
+
+/////
+
+.nav-menu a:hover, .show:hover{
+	background-color: $color-6;
+    
+}
+
+@media screen and (min-width: map-get($breakPoints, mobile)){
+    .icon{
+        display: none;
+    }
+    .nav-menu{
+        display: initial;
+        position: static;
+    }
+    .nav-item{
+        display: inline-block;
+       
+        position: relative;
+    }
+    .dropdown,  ul.dropdownOnHover{
+        position: absolute;        
+        top: 100%; left: 0%;
+        width: max-content;
+    }
+
+	ul.dropdownOnHover{
+		transform: translateX(0%);
+	}
+
+}
+
+/**********************************************************
+** Mise en forme Generique pour les Formulaires ( admin )
+*/
+
+form{
+	margin-top :30px;
+	fieldset {
+		margin-bottom: 15px;
+		padding: 10px;
+	}
+	legend {
+		padding: 0px 3px;
+		font-weight: bold;
+		font-variant: small-caps;
+	}
+	label {
+		width: 220px;
+		display: inline-block;
+		vertical-align: top;
+		margin: 6px;
+	}	
+	em {  // pour les astérisque obligatoires
+		font-weight: bold;
+		font-style: normal;
+		color: #f00;
+	}
+	input:focus {
+		background: #eaeaea;
+	}
+	
+	input, textarea {
+		width: 249px;
+	}
+	
+	textarea {
+		height: 100px;
+	}
+	
+	select {
+		width: 254px;
+	}
+	
+	input[type=checkbox] {
+		width: 10px;
+	}
+	
+	input[type=submit] {
+		display: block;
+		width: 150px;
+		padding: 10px ;
+		border-radius: 20px;
+		margin: auto;
+	}
+
+	.radio{
+		width: 50px;
+	}
+
+	.preview{
+		display: none;
+		background-color: rgb(241, 247, 249);
+		img{
+		display: block;
+		margin: auto;
+		height: 200px;
+		width: auto;
+		}
+	}
+}
+
+/*****************************************************
+** Mise en forme Generique pour les tableaux 
+*/
+
+.catalog {
+	img {
+		display: block;
+		height: 70px;
+		object-fit: contain;
+		margin: auto;
+		cursor: pointer;
+		}
+
+	table {
+		table-layout: auto;
+		max-width: 100%;
+	}
+	tr,
+	td {
+		border: solid;
+	}
+
+	td {
+		max-width: 400px;
+		border: 1px solid blue;
+		overflow: auto;
+		white-space: normal;
+		// text-overflow: ellipsis;
+		vertical-align: middle;
+		padding: 5px;
+	}
+	input[type=submit] {
+		display: block;
+		width: 80px;
+		padding: 10px ;
+		border-radius: 20px;
+		margin: auto;
+	}
+
+}
+
+/**********************************************************************
+** affichage en grand d'un miniature au click sur la vignette
+*/
+.modal-window {
+display: block;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.6s;
+  
+  cursor: pointer;
+  & > img {
+	border-radius: 40px;
+	display: block;
+	border: 4rem ridge thick double #3a1a70;
+    padding : 4rem;
+	height: 80%;
+	object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: $color-2;
+  }
+}
+.visible{
+	visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/********************************************************************
+** page des produits coté public
+*/
+
+.pageProductPublic{
+
+	width: 100%;
+
+	article{
+		@extend %flex-center;
+	}
+	background-color: rgb(211, 211, 211, 0.3 ) ;
+
+	.contImg{
+		flex-basis: 33%;
+		img {
+		display: block;
+		height: 250px;
+		object-fit: contain;
+		margin: auto;
+		cursor: pointer;
+		}
+		
+	}
+	.textProd{
+		padding : 20 px;
+		flex-basis: 45%;
+	}
+
+	/***
+	* Page 404 
+	*/
+
+	.page404{
+		line-height: 1 ;
+	}
+}
+
+
+
+
+
+
+ 

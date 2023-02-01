@@ -1,0 +1,45 @@
+<!-- $token = $data['input'][0]; -->
+<?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
+
+    <h1>Gestion des utilisateurs </h1>
+    <?php require_once('public/views/errors.inc.phtml'); ?>
+    <a class="bouton" href="?route=user&action=displayFormRegister"> nouvel utilisateur</a>
+
+    <table class='catalog'>
+        <thead>
+            <tr>
+                <th>prenom</th>
+                <th>nom</th>
+                <th>email</th>
+                <th>role</th>
+                <th>statut</th>
+                <th>action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach ($data['input']['values'] as $key => $valeur) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($valeur["firstname"]); ?> </td>
+                    <td><?= htmlspecialchars($valeur["lastname"]); ?></td>
+                    <td><?= htmlspecialchars($valeur["email"]); ?> </td>
+                    <td><?= htmlspecialchars($valeur["role"]); ?></td>
+                    <td><?= htmlspecialchars($valeur["status"]); ?></td>
+                    <?php if (htmlspecialchars($valeur["id_user"]) > 1) : //protection super utilisateur // 
+                    ?>
+                        <td>
+                            <a class="bouton" href="?route=user&action=modifyUser&id=<?= htmlspecialchars($valeur['id_user']); ?>">Modifier</a>
+                        </td>
+                    <?php else : ?>
+                        <td>
+                            non modifiable
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php else : ?>
+    <h2> Affichage non autorisé </h2>
+<?php endif; ?>

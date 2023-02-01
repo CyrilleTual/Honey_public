@@ -1,0 +1,22 @@
+<h1>Se connecter !</h1>
+
+<?php require_once('errors.inc.phtml'); ?>
+
+<form action="index.php?route=user&action=checkAndConnect" method="POST">
+        <fieldset>
+                <legend>Connexion</legend>
+
+                <label for="email">Entrez votre email</label>
+                <input type="email" id='email' name="email" maxlength="50" value="<?php echo htmlspecialchars(isset($_POST['email'])) ?   htmlspecialchars($_POST['email']) : ""; ?>"> <br>
+
+                <label for="password">Entrez votre mot de passe</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" maxlength="30">
+                <span class="seePass"><i class="fa-solid fa-eye-slash"></i><i class="fa-solid fa-eye"></i></span>
+
+                <!-- ajout du token -->
+
+                <input id="token" name="token" type="hidden" value="<?= $data['input'] ?>"> <br>
+
+                <input type="submit" value="Valider">
+        </fieldset>
+</form>
