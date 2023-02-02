@@ -8,7 +8,6 @@ class ErrorMessages
     public function getMessages() :  array
     {
         $messagesErrors = [
-
             /* 0 */
             "Une erreur est apparue lors de l'envoi du formulaire !",
             /* 1 */ "Ce message indique que quelque chose pose un p'tit problème",
@@ -20,12 +19,17 @@ class ErrorMessages
             /* 7 */ 'erreur',
             /* 8 */ 'Erreur identification',
             /* 9 */
-
-
-
         ];
         return $messagesErrors;
     }
+
+
+
+
+
+
+
+
 }
 
 

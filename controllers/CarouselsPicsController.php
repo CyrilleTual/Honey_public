@@ -31,10 +31,10 @@ class CarouselsPicsController
 
 
     /** Affichage du formulaire d'ajout - admin
-     * @param array $errors pour réaffichage apres erreur(s)
+     * @param array : $errors pour réaffichage apres erreur(s)
      */
 
-    public function displayFormAddPic($errors=null) :void
+    public function displayFormAddPic(array $errors=null) :void
     {   
         // mise en place d'un nouveau token pour sécuriser la soumission du formulaire 
         $model = new \Models\Tools();
@@ -49,7 +49,7 @@ class CarouselsPicsController
     /** Affichage du formulaire de synthèse des photos du slider - admin
      * @param array $errors pour réaffichage apres erreur(s)
      */
-    public function displayFormPicsSlider($errors = null) :void
+    public function displayFormPicsSlider(array $errors = null) :void
     {
         $data = [];
         $valuesToDisplay = []; // pour recevoir les données à afficher sous forme d'un array .

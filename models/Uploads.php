@@ -28,15 +28,15 @@ const MIME_TYPES = array(
 class Uploads
 {
 
-    /**
-     * @param array $file -> correspond à $_FILES ( formaulaire ) 
+    /** controle et upload des fichiers image
+     * @param array $file -> correspond à $_FILES ( formulaire ) 
      * contient : name/full_path/type/tmp_name/error/size
      * @param string $dossier -> dossier de stockage (au delà du $folder)
      * @param array &$errors -> tableau des erreurs (passage par reference)
-     * @param string $folder -> chemin vers les dosssier
+     * @param string $folder -> chemin de base vers les dosssiers
      * @Param array $fileExtention -> extensions  attendues
      */
-    public function uploadFile(array $file, string $dossier, array &$errors, string $folder = UPLOADS_DIR, array $fileExtensions = FILE_EXT_IMG)
+    public function uploadFile(array $file, string $dossier, array &$errors, string $folder = UPLOADS_DIR, array $fileExtensions = FILE_EXT_IMG) : string
     {
 
         $filename = '';

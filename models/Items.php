@@ -87,14 +87,13 @@ class Items extends Model
 		$this->status = $value;
 	}
 
-    /****************************************************************************************
+    /** recherche  des items dispo 
      * @param string $byColum : liste sous forme de string des clés des colonnes du WHERE
      * @param string $datas : listes des valeurs correspondantes aux clés de $byColumn
      * @param string $order :  ordre du tri 
      * @param int $ limit : nombre maxi d'enregistrements retournés
      * @return array : tableau des enregistrements trouvés 
      */
-
     public function getItemsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array
     {
         $sql = 'SELECT  items.id_item, items.itemRef, items.pack, items.price, items.stock, items.status, products.productName, categories.categoryName, vat.name
@@ -109,34 +108,28 @@ class Items extends Model
         return $this->findByQuery($sql, [$datas]);
     }
 
-	/**
-	 * Verification de l'existance d'un produit en fonction de l'id passé en get 
-	 */
-	public function isProductOk(){
-		
 
-	}
-
-	/******************************************************************************
-	 * Ajout d'un nouvel item suite à la validation puis au controle du formulaire
+	/** Ajout d'un nouvel item suite à la validation puis au controle du formulaire
 	 * @param array $datas => tableau des propriétés / valeurs du noubel item
 	 */
-	public function addNewItem(array $datas)
+	public function addNewItem(array $datas) :void
 	{
-		return $this->create($this->hydrate($datas));
+		$this->create($this->hydrate($datas));
 	}
 
-	/***********************************************************************
-	 * trouve un item par son id
+	/** trouve un item par son id
+	 * @param int $id
+	 * @return array : enregistrement trouvé 
 	 */
 
-	public function findOneItem(int $id)
+	public function findOneItem(int $id) :array
 	{
 		return $this->findOne($id);
 	}
 
-	/****************************************************************
-	 * Methode composée pour update de items
+	/**  Methode composée pour update de items
+	 *  @param int $id_item : id de l'item
+	 *  @param array $datas : tableau des clés/valeurs de l'item
 	 */
 	public function updateItem(int $id_item, array $datas)
 	{
@@ -144,10 +137,15 @@ class Items extends Model
 	}
 
 
-	/************************************************
-	 * recherche des items actif d'un produit
+	/** recherche des items actif d'un produit
+	 * @param string $crit1 : premier critère
+	 * @param string $crit2 : second critère
+	 * @param string $data1 : valeur premier critère
+	 * @param string $data2 : valeur second critère
+	 * @param string $order : ordre de tri
+	 * @param int $limit : nombre de valeurs rerournées
+	 * @return array enregistrements trouvés
 	 */
-
 	public function getItemsPublic(string $crit1 = '1', string $crit2 = '1', string $data1 = '1', string $data2 = '1', string $order = " DESC ", int $limit = 500): array
 	{
 		$sql = 'SELECT  items.id_product,items.id_item, items.itemRef, items.pack, items.price
@@ -158,10 +156,13 @@ class Items extends Model
 		return $this->findByQuery($sql, [$data1, $data2]);
 	}
 
-	/************************************************************
-	 * Methode pour la requète ajax 
+	/**  Methode pour la requète ajax de mise a jour de prix
+	 * @param string $byColumn : critère de selection (where)
+	 * @param string $datas : valeur du critère
+	 * @param string $order : ordre de tri
+	 * @param int $limit : nombre de valeurs rerournées
+	 * @return array enregistrement trouvé
 	 */
-
 	public function getItemPrice(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array
 	{
 		$sql = 'SELECT  items.price 

@@ -39,7 +39,7 @@ class Categories extends Model
     }
 
 
-    /****************************************************************************************
+    /** Recherche selon critères de plusieurs catégories 
      * @param string $byColum : liste sous forme de string des clés des colonnes du WHERE
      * @param string $datas : listes des valeurs correspondantes aux clés de $byColumn
      * @param string $order :  ordre du tri 
@@ -54,8 +54,12 @@ class Categories extends Model
         return $this->findByQuery($sql, [$datas]);
     }
 
-    /**
-     * recheche d'une seule catégorie 
+    /** recheche d'une seule catégorie 
+    * @param string $byColum : liste sous forme de string des clés des colonnes du WHERE
+     * @param string $datas : listes des valeurs correspondantes aux clés de $byColumn
+     * @param string $order :  ordre du tri 
+     * @param int $ limit : nombre maxi d'enregistrements retournés
+     * @return array : enregistrement trouvé 
      */
     public function getOneCategoriesByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array |false
     {
@@ -64,11 +68,5 @@ class Categories extends Model
                 WHERE ' . $byColumn . ' = ? ORDER BY ' . $this->table . '.' . $this->idName . $order . ' LIMIT ' . $limit;
         return $this->findOneByQuery($sql, [$datas]);
     }
-
-
-
-
-
-
 
 }

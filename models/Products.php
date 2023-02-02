@@ -115,26 +115,15 @@ class Products extends Model
     }
 
 
-    /**
-     * trouve tous les enregistrements
-     */
-    public function findAllCat()
-    {
-        return $this->findAll();
-    }
-
-    /****************************************************************************************
-     * Exemple de methode de sélection complexe utilisant une requête préparée 
+    /** Methode de sélection complexe utilisant une requête préparée 
      * @param string $byColum : liste sous forme de string des clés des colonnes du WHERE
      * @param string $datas : listes des valeurs correspondantes aux clés de $byColumn
      * @param string $order :  ordre du tri 
-     * @param int $ limit : nombre maxi d'enregistrements retournés
+     * @param int $limit : nombre maxi d'enregistrements retournés
      * @return array : tableau des enregistrements trouvés 
      */
-
     public function getProductsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array
     {
-
         $sql = 'SELECT  products.id_product,  products.productName, products.productRef, products.teaser, products.description, products.infos,products.picture, products.status,
                         categories.id_category, categories.categoryName
                 FROM ' . $this->table . '
@@ -146,42 +135,42 @@ class Products extends Model
         return $this->findByQuery($sql, [$datas]);
     }
 
-    /******************************************************************************
-     * Ajout d'un nouveau produit suite à la validation puis au controle du formulaire
+    /** Ajout d'un nouveau produit suite à la validation puis au controle du formulaire
      * @param array $datas => tableau des propriétés / valeurs du noubel user
-     * @return : obj de la classe pdo ou false si pb
      */
-    public function addNewProduct(array $datas)
+    public function addNewProduct(array $datas) :void
     {
-        return $this->create($this->hydrate($datas));
-        // var_dump($this->create($this->hydrate($datas)));
-        // var_dump($datas);
-        // die;
+        $this->create($this->hydrate($datas));
     }
 
-    /**
-     * selection d'un produit par id
+    /** selection d'un produit par id
+     * @param int $id : id du produit à selectionner
+     * @return array : le produit cherché 
      */
-
-    public function findOneProduct(int $id)
+    public function findOneProduct(int $id) :array 
     {
         return $this->findOne($id);
     }
 
 
-    /****************************************************************
-     * Methode composée pour update de produits 
+    /** Methode composée pour update de produits 
+     * @param int $id_product
+     * @param array $data tableau des propriétés/valeurs du produit
      */
-
-    public function UpdateProduct(int $id_product, array $datas)
+    public function UpdateProduct(int $id_product, array $datas): void
     {
-        return $this->update($id_product, ($this->hydrate($datas)));
+        $this->update($id_product, ($this->hydrate($datas)));
     }
 
-    /**********************************************************************
-     * Recherche des produits actifs pour affichage public
+    /** Recherche des produits selon 2 critères (idcat et actifs par ex)pour affichage public
+     * @param string propriété 1
+     * @param string propriété 2
+     * @param string critère 1
+     * @param string critère 
+     * @param string ordre de tri
+     * @param int nombre de valeurs rerournées
+     * @return array enregistrements trouvés
      */
-
     public function getProductsPublic(string $crit1 = '1', string $crit2 = '1', string $data1 = '1', string $data2 = '1', string $order = " DESC ", int $limit = 500): array
     {
        
@@ -196,10 +185,11 @@ class Products extends Model
         return $this->findByQuery($sql, [$data1,$data2]);
     }
 
-    /**********************************************
-     * Recherche des produits sur requête Ajax
+    /** Recherche des produits sur requête Ajax
+     * @param string $search : chaine de caractères recherchée 
+     * @return array : tableau des enregistrements trouvés 
      */
-     public function getProductsAjax($search)
+     public function getProductsAjax($search) : array
      {
         $sql = 'SELECT  products.id_product, products.productName, products.productRef, products.teaser, products.description, products.infos, products.picture,
                 items.id_item
@@ -211,6 +201,4 @@ class Products extends Model
                 LIMIT 50';
         return $this->findByQuery($sql, [$search, $search]);
      }
-
-
 }

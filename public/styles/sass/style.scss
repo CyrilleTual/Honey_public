@@ -79,7 +79,6 @@ h2{
 
 a{
 	text-decoration: none;
-	color: $font-dark;
 }
 .pos{
 	position: relative;
@@ -500,8 +499,6 @@ form{
 	& > img {
 		border-radius: 40px;
 		display: block;
-		border: 4rem ridge thick double #3a1a70;
-		padding : 4rem;
 		height: 80%;
 		object-fit: contain;
 		@extend %center-el;
@@ -536,7 +533,6 @@ form{
 /**
 *petit oeil a coté des champs passwords
 */
-
 .seePass{
 	cursor: pointer;
 	.fa-eye{
@@ -550,10 +546,7 @@ form{
 			display: none;
 		}
 	}
-
 }  
-
-
 
 
 .visible{
@@ -562,10 +555,10 @@ form{
     pointer-events: auto;
 }
 
+
 /*****************************************************
 **      homePage
 */
-
 .homePage{
 	position: relative;
 	width: 100%;
@@ -605,8 +598,6 @@ form{
 /********************************************
 *          Slider
 */
-
-
 .sliderSlick {
   	width: 100%;
   	padding-top: $pad;
@@ -637,10 +628,10 @@ form{
 	}
 }
 
+
 /***********************************************************
 ** page des produits coté public
 */
-
 .pageProductPublic{
 	width: 100%;
 	.find{
@@ -709,9 +700,6 @@ form{
 			margin-top: 0px ; 
 			width: 35%;
 		}	
-		text-align: left;
-		//	@extend %text-box;
-		
 		.items{
 			@extend %flex-center;
 		}
@@ -734,7 +722,6 @@ form{
 		@extend %text-box;
 		margin-top: $pad;
 	}
-
 	h2{
 		text-align: center;
 	}
@@ -743,7 +730,6 @@ form{
 		height: auto;
 		float:left;
 		margin-right: $pad;
-
 	}
 	.center{
 		text-align: center;
@@ -751,9 +737,7 @@ form{
 	a.bouton{
 		display: inline-block;
 		margin-top: $pad;
-
 	}
-
 }
 
 
@@ -764,7 +748,6 @@ form{
 */
 
 .pageSalesPoints{
-
 
 	// Pour rendre responsive carte googlemap :
 	.mapWrapper{
@@ -813,7 +796,6 @@ form{
 		width: 100%;
 		@extend %flex-center;
 		justify-content: space-around;
-	
 		@media screen and (min-width: map-get($breakPoints, mobile)){   
 			width: 45%;   
 		}	
@@ -828,19 +810,13 @@ form{
 		@media screen and (min-width: map-get($breakPoints, mobile)){ 
 			width: 80%;
 		}
-		a{
-			color: $font-dark;
-		}
 		.networks{
 			text-align: center;
 		}	
 	}
-
-
 	.coords {
 		@extend %text-box;
 	}
-
 	img {
 		width: 80%;
 		border-radius: 2rem;
@@ -866,7 +842,6 @@ form{
 			border-radius: 2rem;
 			height: 0;
 			margin: 10px auto;
-			background-color: pink;
 				@media screen and (min-width: map-get($breakPoints, small)){      
 					width: 360px;
 					height: 640px;
@@ -905,8 +880,8 @@ form{
 
 .p404 {
 	width: 100%;
+	max-width: 600px;
 	display: block;
-
 }
 
 

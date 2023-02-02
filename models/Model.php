@@ -2,7 +2,6 @@
 
 namespace Models;
 
-
 class Model
 {
     private  $pdo; // représente l'instance de connexion à la DB
@@ -11,12 +10,20 @@ class Model
      * création d'un instance PDO pour connextion à la base de données
      */
     public function __construct()
-    {
-        $config = require 'config/database_dist.php'; // recup des paramètres de connxion
-        $this->pdo = new \PDO("mysql:host=" . $config['host'] . ";dbname=" . $config['dbname'] . ";charset=" . $config['db_utf'], $config['username'], $config['password'], [
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
-        ]);
+    {  
+        if ($this->pdo === null){
+            $config = require 'config/database_dist.php'; // recup des paramètres de connxion
+            try {
+                $this->pdo = new \PDO("mysql:host=" . $config['host'] . ";dbname=" . $config['dbname'] . ";charset=" . $config['db_utf'], $config['username'], $config['password'], [
+                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC, // retourne un tableau indexé par le nom de la colonne 
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION // lance PDOExeptions
+                ]);
+            } catch (\PDOException $e) {
+                $error = new \Controllers\ErrorsController;
+                $error->pdoError($e);
+                die;
+            }
+        }
     }
 
     /***********************************************************************************
@@ -28,41 +35,52 @@ class Model
      * @param : aucun, se sert de l'objet sur lequel la méthode est utilisée
      * @return array Tableau des enregistrements trouvés  
      */
-    protected function findAll(): array | false
-    {
-        $query = $this->pdo->prepare("SELECT * FROM $this->table ");
-        $query->execute();
-        return $query->fetchAll();
-    }
-    // utilisation : return $this->findAll(); 
+    // protected function findAll(): array | false
+    // {
+    //     $query = $this->pdo->prepare("SELECT * FROM $this->table ");
+    //     $query->execute();
+    //     return $query->fetchAll();
+    // }
+    // // utilisation : return $this->findAll(); 
 
-    /** findByQuery -> Methode permettant des requêtes complexe car attend en paramètre une requète sql et un tableau de paramètres
+    /** findByQuery ->  attend en paramètre une requète sql et un tableau de paramètres
      * @param string $sdl -> requète préparée 
      * @param array $datas -> tableau valeurs  (pour les contraintes sur le WHERE)
      * @return array  comprenant les enregistrements trouvés
      */
     protected function findByQuery(string $sql, array $datas = []): array | false
     {
-        $query = $this->pdo->prepare($sql);
-        $query->execute($datas);
+        try{
+            $query = $this->pdo->prepare($sql);
+            $query->execute($datas);
+            return $query->fetchAll();
+        } catch(\PDOException $e){
+            $error = new \Controllers\ErrorsController;
+            $error->pdoError($e);
+            die;
+        }
         
-        return $query->fetchAll();
     }
     // utilisation -> voir le README
 
 
-    /** findOneByQuery -> Methode permettant des requêtes complexe car attend en paramètre une requète sql et un tableau de paramètres
+    /** findOneByQuery -> ATTENTION DIFFERENCE avec la précédente FETCH et non FETCH ALL  adapté pour 1 seul retour
      * @param string $sdl -> requète préparée 
      * @param array $datas -> tableau valeurs  (pour les contraintes sur le WHERE)
      * @return array  comprenant l'enregistrement trouvé
-     * ---- ATTENTION DIFFERENCE avec la précédente FETCH et non FETCH ALL  adapté pour 1 seul retour
      */
     protected function findOneByQuery(string $sql, array $datas = []): array | false
     {
-        $query = $this->pdo->prepare($sql);
-        $query->execute($datas);
-
-        return $query->fetch();
+        try{
+            $query = $this->pdo->prepare($sql);
+            $query->execute($datas);
+            return $query->fetch();
+        }catch(\PDOException $e){
+            $error = new \Controllers\ErrorsController;
+            $error->pdoError($e);
+            die;
+        }
+       
     }
 
 
@@ -92,12 +110,18 @@ class Model
      */
     protected function findOne(int $id): array | false
     {
-        // preparation de la requête
-        $query = $this->pdo->prepare("SELECT * 
-        FROM    $this->table 
-        WHERE   $this->idName = ?");
-        $query->execute([$id]);
-        return $query->fetch();
+        try{
+            // preparation de la requête
+            $query = $this->pdo->prepare("SELECT * 
+                    FROM    $this->table 
+                    WHERE   $this->idName = ?");
+            $query->execute([$id]);
+            return $query->fetch();
+        } catch (\PDOException $e) {
+            $error = new \Controllers\ErrorsController;
+            $error->pdoError($e);
+            die;
+        }
         /**
          * Exemple d'utilisation : 
          *  $id = 3;
@@ -110,21 +134,27 @@ class Model
      * @param array $ tableau de critères ['champ1'=>'value1', 'champ2=>value2' etc...]
      * @return array Tableau des enregistrements trouvés  
      */
-
     protected function findBy(array $params = []): array | false
     {
-        // on appel la methode split pour  transformer le tableau de critère 
-        [$liste_champs, $valeurs] = $this->split($params);
-        // preparation de la requête
-        $query = $this->pdo->prepare("SELECT * 
+        try{
+            // on appel la methode split pour  transformer le tableau de critère 
+            [$liste_champs, $valeurs] = $this->split($params);
+            // preparation de la requête
+            $query = $this->pdo->prepare("SELECT * 
                                         FROM    $this->table 
                                         WHERE   $liste_champs", $valeurs);
-        // execution  de la requête
-        $query->execute($valeurs);
-        return $query->fetchAll();
+            // execution  de la requête
+            $query->execute($valeurs);
+            return $query->fetchAll();
+
+        } catch (\PDOException $e) {
+            $error = new \Controllers\ErrorsController;
+            $error->pdoError($e);
+            die;
+        }
         /**
          * Exemple d'utilisation : 
-         *  $params = ['id' => 28,'lastName' => "*BRAVO mon gars! **"];
+         *  $params = ['id' => 28,'lastName' => "BRAVO"];
          *  return $this->findBy($params);
          */
     }
@@ -134,13 +164,21 @@ class Model
      * @param int $idValue : valeur de l'id 
      * @return boolean true ou false si problème d'execution 
      */
-    public function delete(int $idValue): bool
+    protected function delete(int $idValue): bool
     {
-        $query = $this->pdo->prepare("DELETE    
+        try{
+            $query = $this->pdo->prepare("DELETE    
                                         FROM    $this->table 
                                         WHERE   $this->idName = ?");
 
-        return $query->execute([$idValue]);
+            return $query->execute([$idValue]);
+
+        } catch (\PDOException $e) {
+            $error = new \Controllers\ErrorsController;
+            $error->pdoError($e);
+            die;
+        }
+
     }
     // ex :  return $this->delete(32);
 
@@ -167,17 +205,24 @@ class Model
         $liste_champs   = implode(',',  $champs); // ex: string(19) "lastName, firstName"
         $liste_inter    = implode(',', $inter);  // ex:  "?, ?"
         // requête 
-        $query = $this->pdo->prepare('INSERT INTO ' . $table . '(' . $liste_champs . ') values (' . $liste_inter . ')');
-        $query->execute($valeurs);
-    
+        try{
+            $query = $this->pdo->prepare('INSERT INTO ' . $table . '(' . $liste_champs . ') values (' . $liste_inter . ')');
+            $query->execute($valeurs);
+        } catch (\PDOException $e) {
+            $error = new \Controllers\ErrorsController;
+            $error->pdoError($e);
+            die;
+        }
         // ex d'utilisation : return $this->create($model); 
     }
+
+    
     /** Mise à jour d'un enregistrement  (UPDATE )
      * @param int $id : id de l'enregistrement à modifier
      * @param Model $model : Objet à modifier, de la classe Database (par l'extend)
      * @return void 
      */
-    public function update(int $id, Model $model): void
+    protected function update(int $id, Model $model): void
     { 
         $champs     = [];
         $valeurs    = [];
@@ -195,9 +240,18 @@ class Model
         $liste_champs = implode(', ', $champs);
         // Requête
 
-        $query =  $this->pdo->prepare("UPDATE $this->table SET $liste_champs  WHERE $this->idName = ?");        
+        try{
+            $query =  $this->pdo->prepare("UPDATE $this->table 
+                                        SET $liste_champs  
+                                        WHERE $this->idName = ?");
 
-        $query->execute($valeurs);
+            $query->execute($valeurs);
+
+        } catch (\PDOException $e) {
+            $error = new \Controllers\ErrorsController;
+            $error->pdoError($e);
+            die;
+        }
         // ex d'utilisation :  $valID = 33; return $this->update($valID, $model);
     }
 
@@ -206,7 +260,7 @@ class Model
      * @param array $datas Tableau associatif des données (respecter l'ordre )
      * @return self Retourne l'objet hydraté
      */
-    public function hydrate(array $datas): Model
+    protected function hydrate(array $datas): Model
     {
         foreach ($datas as $key => $value) {
             // On récupère le nom du setter correspondant à l'attribut.
@@ -223,6 +277,5 @@ class Model
      * Utilisation : $this->hydrate($datas) ( voir le README pour plus d'indormations)
      * penser aussi que "$this->create($this->hydrate($datas));" est possible 
      */
-
 
 }

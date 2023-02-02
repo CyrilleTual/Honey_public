@@ -46,9 +46,13 @@ class News extends Model
         $this->date = $value;
     }
 
-    /******************************************************************
-	 * recupération des news avec eventuel critère
-	 */
+    /** recupération des news avec eventuel critère
+     * @param string $byColumn : critère de selection (where)
+     * @param string $datas : valeur du critère
+     * @param string $order : ordre de tri
+     * @param int $limit : nombre de valeurs retournées
+     * @return array enregistrement trouvé
+     */
 	public function getNewsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array
 	{
 		$sql = 'SELECT  
@@ -60,45 +64,38 @@ class News extends Model
 		return $this->findByQuery($sql, [$datas]);
 	}
 
-    /**************************************************
-	 * selection d'une news par id
+    /** selection d'une news par id
+     * @param int $id : id de la news cherchée
+     * @return array : news trouvée
 	 */
 	public function findOneNews(int $id)
 	{
 		return $this->findOne($id);
 	}
 
-    /******************************************
-     * Ajout d'une nouvelle news suite à la validation puis au controle du formulaire
+    /**  Ajout d'une nouvelle news suite à la validation puis au controle du formulaire
      * @param array $datas => tableau des propriétés / valeurs  
-     * @return : obj de la classe pdo ou false si pb
      */
-    public function addNewNews(array $datas)
+    public function addNewNews(array $datas): void
     {
-        return $this->create($this->hydrate($datas));
+        $this->create($this->hydrate($datas));
     }
 
-    /**
-     * Effacement d'un enregistrement dans la Base
+    /** Effacement d'un enregistrement dans la Base
+     * @param int $id: id de la news à effacer
+     * @return boolean : true ou false si problème d'execution
      */
-    public function delOneNews(int $id)
+    public function delOneNews(int $id) :bool
     {
-        return $this->delete($id);
+        return ($this->delete($id));
     }
 
-    /***********************************************
-	 * Methode composée pour update 
-	 */
-	public function updateNews(int $id_product, array $datas)
+    /** Methode composée pour update 
+     * @param int $id_product : id du produit 
+     * @param array $datas : tableau des propriétés / valeurs  
+     */
+	public function updateNews(int $id_product, array $datas): void
 	{
-		return $this->update($id_product, ($this->hydrate($datas)));
+		$this->update($id_product, ($this->hydrate($datas)));
 	}
-
-
-
-
-
-
-
-	
 }

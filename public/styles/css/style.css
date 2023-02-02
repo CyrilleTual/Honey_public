@@ -522,7 +522,6 @@ h2::first-letter {
 
 a {
   text-decoration: none;
-  color: rgb(79, 79, 79);
 }
 
 .pos {
@@ -948,8 +947,6 @@ form .preview img {
 .modal-window > img {
   border-radius: 40px;
   display: block;
-  border: 4rem ridge thick double #3a1a70;
-  padding: 4rem;
   height: 80%;
   object-fit: contain;
   padding: 2em;
@@ -978,6 +975,7 @@ form .preview img {
   border: 1px black solid;
   position: absolute;
   right: 50%;
+  transform: translate(50%);
   bottom: 5px;
 }
 @media (hover: none) {
@@ -994,6 +992,7 @@ form .preview img {
     border: 1px black solid;
     position: absolute;
     right: 50%;
+    transform: translate(50%);
     bottom: 5px;
   }
 }
@@ -1144,7 +1143,6 @@ form .preview img {
 .pageProductPublic .textProd {
   width: max-content;
   margin-top: 2rem;
-  text-align: left;
 }
 @media screen and (min-width: 768px) {
   .pageProductPublic .textProd {
@@ -1249,9 +1247,6 @@ form .preview img {
     width: 80%;
   }
 }
-.pageAbout .txt a {
-  color: rgb(79, 79, 79);
-}
 .pageAbout .txt .networks {
   text-align: center;
 }
@@ -1283,7 +1278,6 @@ form .preview img {
   border-radius: 2rem;
   height: 0;
   margin: 10px auto;
-  background-color: pink;
 }
 @media screen and (min-width: 576px) {
   .pageAbout .zoomBas .videoWrapper {
@@ -1325,5 +1319,6 @@ form .preview img {
 
 .p404 {
   width: 100%;
+  max-width: 600px;
   display: block;
 }/*# sourceMappingURL=style.css.map */

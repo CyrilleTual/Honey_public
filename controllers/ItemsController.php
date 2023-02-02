@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Models\Products;
+//use Models\Products;
 
 class ItemsController
 {

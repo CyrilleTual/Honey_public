@@ -14,9 +14,10 @@ class HomePageController
         $model = new \Models\News();
         $newsToDisplay = $model->getNewsByQuery('status', 'actif', ' DESC', '10');
 
-        // selection de la dernière news pour section " A la une " 
+        // separation de la dernière news pour section " A la une " 
         $lastNews = array_shift($newsToDisplay);
 
+        // appel de l'affichage
         $data['last']= $lastNews;
         $data['pics'] = $picsToDisplay;
         $data['news'] = $newsToDisplay;

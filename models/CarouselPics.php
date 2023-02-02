@@ -54,16 +54,19 @@ class CarouselPics extends Model
 
 	/** Ajout d'une nouvelle photo dans le carroussel suite à la validation puis au controle du formulaire
 	 * @param array $datas => tableau des propriétés / valeurs  
-	 * @return : obj de la classe pdo ou false si pb
 	 */
 	public function addNewPic(array $datas) 
 	{
-		return $this->create($this->hydrate($datas));
+		$this->create($this->hydrate($datas));
 	}
 
 
-	/******************************************************************
-	 * recupération des photos avec eventuel critère
+	/** recupération des photos avec eventuel critère
+	 * @param string $byColumn : critère de selection (where)
+	 * @param string $datas : valeur du critère
+	 * @param string $order : ordre de tri
+	 * @param int $limit : nombre de valeurs retournées
+	 * @return array enregistrement trouvé 
 	 */
 	public function getPicsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array
 	{
@@ -76,36 +79,35 @@ class CarouselPics extends Model
 		return $this->findByQuery($sql, [$datas]);
 	}
 
-	/*****************************************************************
-	 * selection d'une photo par id
+	/** selection d'une photo par id
+	 * @param int $id : id de la photo cherchée
+	 * @return array : l'enregistrement trouvé 
 	 */
 
-	public function findOnePic(int $id)
+	public function findOnePic(int $id) :array
 	{
 		return $this->findOne($id);
 	}
 
-	/****************************************************************
-	 * Methode composée pour update de photos
+	/**  Methode pour update de photos
+	 * @param int $id_product : id du produit
+	 * @param array $datas : tableau des proriétés/valeurs de l'objet
 	 */
 	public function updatePic(int $id_product, array $datas)
 	{
-		return $this->update($id_product, ($this->hydrate($datas)));
+		 $this->update($id_product, ($this->hydrate($datas)));
 	}
 
 
-	/**
-	 * Effacement d'un enregistrement dans la Base
+	/** Effacement d'un enregistrement dans la Base
+	 * @param int $id : id du produit
+	 * @return bool : 1 si 1 produit deleté
 	 */
 
-	public function delOnePic(int $id)
+	public function delOnePic(int $id) :bool
 	{
 		return $this->delete($id);
 	}
-
-
-
-
 
 
 
