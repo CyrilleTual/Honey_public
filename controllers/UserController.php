@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-class UserController
+class UserController extends SecurityController
 {
 
     /**  Methode de vérification de la validité d'id passé en GET 
@@ -360,45 +360,60 @@ class UserController
 
     /** Affichage du formulaire de gestion des roles et status des utilisateurs
      */
-
     public function displayFormAdminUsers($errors = null) : void
     {
-        // mise en place d'un token pour sécuriser la soumission du formulaire 
-        $model = new \Models\Tools();
-        $token = $model->randomChain(20);
-        $_SESSION['auth'] = $token;
 
-        $model = new \Models\Users();
-        $valuesToDisplay = $model->getUsers(); // recup d'un tableau à afficher 
-        $data["token"] = $token;
-        $data["values"] = $valuesToDisplay;
-    
-        // affichage de la vue d'affichage en passant les données
-        new RendersController('admin/userManagement', $data, $errors);
+        if ($this->is_admin()) {
+            // mise en place d'un token pour sécuriser la soumission du formulaire 
+            $model = new \Models\Tools();
+            $token = $model->randomChain(20);
+            $_SESSION['auth'] = $token;
+
+            $model = new \Models\Users();
+            $valuesToDisplay = $model->getUsers(); // recup d'un tableau à afficher 
+            $data["token"] = $token;
+            $data["values"] = $valuesToDisplay;
+
+            // affichage de la vue d'affichage en passant les données
+            new RendersController('admin/userManagement', $data, $errors);
+
+        } else {
+            $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
+            header('Location: index.php?route=homePage&action=init');
+            exit();
+        }
     }
 
     /** Modification d'un utilisateur -  Affichage du formulaire  - admin
      */
     public function modifyUser():void
     {
-        // on verifie la validité de l'id passé en get et si c'est ok on recupère les infos
-        $ToModify = self::iduserByGetIsOK();
-        // on reverifie qu'il ne s'agir pas du super utilisateur ( id =1 )
-        if ($ToModify[0]['id_user'] !== 1){
-            // mise en place d'un token
-            $model = new \Models\Tools();
-            $token = $model->randomChain(20);
-            $_SESSION['auth'] = $token;
-            $data['token'] = $token;
-            $data['user'] = $ToModify[0];
-            // affichage de la vue de la vue de modification 
-            new RendersController('admin/userModify', $data);
+
+        if($this->is_admin()){
+            // on verifie la validité de l'id passé en get et si c'est ok on recupère les infos
+            $ToModify = self::iduserByGetIsOK();
+            // on reverifie qu'il ne s'agir pas du super utilisateur ( id =1 )
+            if ($ToModify[0]['id_user'] !== 1) {
+                // mise en place d'un token
+                $model = new \Models\Tools();
+                $token = $model->randomChain(20);
+                $_SESSION['auth'] = $token;
+                $data['token'] = $token;
+                $data['user'] = $ToModify[0];
+                // affichage de la vue de la vue de modification 
+                new RendersController('admin/userModify', $data);
+                exit();
+            };
+            // si on tente d'agir sur le super utilidateur c'est du piratage !!
+            session_destroy();
+            header('Location: index.php?route=homePage&action=init');
             exit();
-        };
-        // si on tente d'agir sur le super utilidateur c'est du piratage !!
-        session_destroy();
-        header('Location: index.php?route=homePage&action=init');
-        exit();
+        }else{
+            $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
+            header('Location: index.php?route=homePage&action=init');
+            exit();
+        }
+        
     }
 
     /** Traitement du formulaire de modification d'un utilisateur
@@ -406,81 +421,90 @@ class UserController
 
     public function modifyUserProcess():void 
     {
-        // protection si tentative modif super-utilisateur
-        if($_POST['idUser'] == 1){
-            session_destroy();
+        if ($this->is_admin()) {
+            // protection si tentative modif super-utilisateur
+            if($_POST['idUser'] == 1){
+                session_destroy();
+                header('Location: index.php?route=homePage&action=init');
+                exit();
+            }
+            // initialisation des variables 
+            $modifUser = [
+                'role'    => '',
+                'status'  => '',
+            ];
+
+            // initialisation du tableau des erreurs 
+            $errors = [];
+            $errorsArray = new \Models\ErrorMessages(); // 
+            $messagesErrors = $errorsArray->getMessages();
+
+            // vérification que le formulaire est complet 
+            if (
+                array_key_exists('idUser', $_POST)
+                && array_key_exists('role', $_POST)
+                && array_key_exists('status', $_POST)
+                ) {
+
+                // on peuple le tableau préparé 
+                $modifUser = [
+                    'role'       => trim($_POST['role']),
+                    'status'     => trim($_POST['status'])
+                ];
+
+                // Mise en oeuvre des contrôles :
+                //1) validité du token 
+
+                if (isset($_SESSION['auth']) && $_SESSION['auth'] != $_POST['token'])
+                $errors[] = "Une erreur est apparue lors de l'envoi du formulaire !";
+
+                //2) validité du role
+                if ($modifUser['role'] == '' || (($modifUser['role']!=='client')&&($modifUser['role'] !== 'admin')))
+                $errors[] = "Erreur";
+                
+
+                //3) validité du statut
+                if ($modifUser['status'] == '' || (($modifUser['status'] !== 'actif') && ($modifUser['status'] !== 'inactif')))
+                $errors[] = "Erreur";
+                
+
+                //  il s'agit d'une mise à jour -> methode Update
+
+                if ((isset($_POST['idUser'])) && (count($errors) == 0)) {
+                    $model = new \Models\Users();
+                    // verification de l'existance de l'user 
+                    $userExist = $model->getUsers('id_user', $_POST['idUser']); // retourne un tableau contenant l'user si existe ou tableau vide
+                    if (empty($userExist)) {
+                        $errors[] = $messagesErrors[8];
+                        // var_dump($errors); -> array(1) { [0]=> string(21) "Erreur identification" }
+                    } else {
+                        $model->updateUser(($_POST['idUser']), $modifUser); 
+                        self::displayFormAdminUsers();
+                        exit();
+                    }
+                        new RendersController('homePage');
+                    exit();
+                }
+                
+
+
+            }
+
+            /********************************************************************
+             *  si erreurs, régénération de la vue 
+             */
+            $errors[] = "Une erreurs est survenue, modification non prise en compte";
+            self::displayFormAdminUsers($errors);
+            exit();
+
+        }else{
+            $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
             header('Location: index.php?route=homePage&action=init');
             exit();
         }
-        // initialisation des variables 
-        $modifUser = [
-            'role'    => '',
-            'status'  => '',
-        ];
-
-        // initialisation du tableau des erreurs 
-        $errors = [];
-        $errorsArray = new \Models\ErrorMessages(); // 
-        $messagesErrors = $errorsArray->getMessages();
-
-        // vérification que le formulaire est complet 
-        if (
-            array_key_exists('idUser', $_POST)
-            && array_key_exists('role', $_POST)
-            && array_key_exists('status', $_POST)
-        ) {
-
-            // on peuple le tableau préparé 
-            $modifUser = [
-                'role'       => trim($_POST['role']),
-                'status'     => trim($_POST['status'])
-            ];
-
-            // Mise en oeuvre des contrôles :
-            //1) validité du token 
-
-            if (isset($_SESSION['auth']) && $_SESSION['auth'] != $_POST['token'])
-            $errors[] = "Une erreur est apparue lors de l'envoi du formulaire !";
-
-            //2) validité du role
-            if ($modifUser['role'] == '' || (($modifUser['role']!=='client')&&($modifUser['role'] !== 'admin')))
-            $errors[] = "Erreur";
-         
-
-            //3) validité du statut
-            if ($modifUser['status'] == '' || (($modifUser['status'] !== 'actif') && ($modifUser['status'] !== 'inactif')))
-            $errors[] = "Erreur";
-           
-
-            //  il s'agit d'une mise à jour -> methode Update
-
-            if ((isset($_POST['idUser'])) && (count($errors) == 0)) {
-                $model = new \Models\Users();
-                // verification de l'existance de l'user 
-                $userExist = $model->getUsers('id_user', $_POST['idUser']); // retourne un tableau contenant l'user si existe ou tableau vide
-                if (empty($userExist)) {
-                    $errors[] = $messagesErrors[8];
-                    // var_dump($errors); -> array(1) { [0]=> string(21) "Erreur identification" }
-                } else {
-                    $model->updateUser(($_POST['idUser']), $modifUser); 
-                    self::displayFormAdminUsers();
-                    exit();
-                }
-                    new RendersController('homePage');
-                exit();
-            }
-           
-
-
-        }
-
-        /********************************************************************
-         *  si erreurs, régénération de la vue 
-         */
-        $errors[] = "Une erreurs est survenue, modification non prise en compte";
-        self::displayFormAdminUsers($errors);
-        exit();
-
     }
 
 }
+
+
+
