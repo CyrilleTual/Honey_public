@@ -18,7 +18,6 @@ body {
 }
 
 
-
 header, footer {
 	min-height: 20px;
 	text-align: center;
@@ -40,7 +39,6 @@ header, footer {
 }
 
 .wrapper {
-	//display: block;
 	width: 100%;
 	max-width: 1024px;
 	padding: 0rem $pad 0 $pad;
@@ -128,12 +126,11 @@ a{
 /**
 ** Mise en forme lien comme un bouton (admin )
 **/
-a.bouton {
+.bouton {
 	text-decoration: none;
 	padding: 5px 5px;
 	background-color: $color-4; 
 	color:$font-dark;
-	border: 1px solid gray;
 	border-style:inset;
 	border-radius: 12px;
 	border: 2px solid #46a28d;
@@ -142,6 +139,10 @@ a.bouton {
 			border: inset 2px;;
 			@include vibes; 
 		}
+}
+
+.formDelete{
+	margin: auto;
 }
 /*******************************************************
 **  Logo et titre dans le header
@@ -190,9 +191,9 @@ a.bouton {
 .icon{
     cursor: pointer;
 	position : absolute;
-	z-index: 80;
-	top: - 60px;
-	right: 15px;
+	z-index: 5;
+	top: -90px;
+	right: 18px;
 	@media screen and (min-width: map-get($breakPoints, mobile)){	
 			display: none;
 		}
@@ -212,10 +213,6 @@ a.bouton {
     align-items: flex-end;
     position: relative;
 	margin-bottom: 10px;
-	// .dropdown{
-	// 	display: none;
-	// 	z-index: 65;
-	// }
 	.nav-menu{
 		position: absolute;
 		z-index: 65;
@@ -254,6 +251,7 @@ a.bouton {
 		}
 		.drop-item a{
 			border: 1px solid $color-2;
+			position:relative;
 
 		}	
 	}
@@ -280,15 +278,13 @@ a.bouton {
 		&:hover {
 			background-color: $color-4;
 			max-width: 100%;
-			//border: 0.5px solid lightgray;
 			color: black;
+			@include vibes; 
+			z-index: 100;
 			@media screen and (min-width: map-get($breakPoints, mobile)){ 
 				position: relative;   
 				top: 0%; left: 0%;
-				border-top: none;
-				//transform: translateX(0%);
-				//transform: translate(0px,1px);
-				@include vibes; 			
+				border-top: none;			
 			}
 		}
 	}
@@ -795,6 +791,7 @@ form{
 	.adressTop{
 		width: 100%;
 		@extend %flex-center;
+		align-items: center;
 		justify-content: space-around;
 		@media screen and (min-width: map-get($breakPoints, mobile)){   
 			width: 45%;   
@@ -803,6 +800,11 @@ form{
 	
 	.txt{
 		width: 80%;
+		address a{
+			color: $color-link;
+			text-decoration: underline;
+		}
+		
 		@media screen and (min-width: 576px){
 			width: 35%;
 			order: -1;
@@ -815,6 +817,7 @@ form{
 		}	
 	}
 	.coords {
+		line-height: 2rem;
 		@extend %text-box;
 	}
 	img {
@@ -824,7 +827,7 @@ form{
 		@media screen and (min-width: 576px){
 			width: 45%;
 			margin: 0;
-			align-self: flex-end;
+			//align-self: flex-end;
 		}
 		@media screen and (min-width: map-get($breakPoints, mobile)){ 
 			width: 80%;
@@ -859,7 +862,26 @@ form{
 			width: 48%;
 		}	
 	}
+
+	.barCode{
+		display: none;
+		margin-top: $pad;
+		@extend %text-box;
+		
+		img{
+			border-radius: initial;
+			display: block;
+			margin: auto;
+			@media screen and (min-width: map-get($breakPoints, small)){ 
+			max-width: 125px;
+		}
+		}
+		@media screen and (min-width: map-get($breakPoints, small)){ 
+			display: initial;
+		}
+	} 
 }
+
 
 /*******************************
 * Mentions légales

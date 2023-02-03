@@ -4,13 +4,17 @@ namespace Controllers;
 
 
 class ErrorsController
-{   
-    /** Gestion erreur pdo connexion 
+{
+    public function __construct()
+    {
+        require_once "config/config.php";
+    }
+
+    /** Gestion erreur pdo connexion -> version minimaliste du site 
      * @param $e : erreur PDO
      */
     public function pdoError(object $e) :void
     {
-        require_once "config/config.php";
         $messageAdmin = ($e->getMessage());  
         $to      = ADMIN_ADDRESS;
         $subject = 'erreur grave vincent petit';
@@ -23,7 +27,15 @@ class ErrorsController
         }else{
              $message = 'Si la situation persiste merci de bien vouloir contacter l\'administrateur de ce site par mail en précisant le code erreur suivant :'.($e->getCode());
         }
+        include 'public/views/errorsWebSite.phtml';
+        exit();
+    }
+    public function ajaxError(): void
+    {
+        $error=  htmlspecialchars(trim($_GET['err'])) ;
 
+        $message = 'Si la situation persiste merci de bien vouloir contacter l\'administrateur de ce site par mail en précisant le code erreur suivant : Erreur ajax,  ' . $error;
+       
         include 'public/views/errorsWebSite.phtml';
         exit();
     }

@@ -2,8 +2,6 @@
 
 namespace Controllers;
 
-//use Models\Products;
-
 class ItemsController
 {
 
@@ -279,7 +277,7 @@ class ItemsController
         $model = new \Models\Items();
         $item = $model->getItemPrice("id_item", $idToSearch);
         $priceOfItem = $item['price'];
-        // include du template
+        //include du template
         include 'public/views/price.phtml';
     } 
 

@@ -119,15 +119,27 @@ function updatePrice(){
           method : 'POST',
           body : JSON.stringify({ idToFind : value})
         })
-        // traitement de la promesse > recup du texte et affichage dans div cible
+        // traitemeent de la promesse avec gestion des erreurs > recup du texte et affichage dans div cible
         fetch(requestPrice)
-        .then(res => res.text())
-        .then(res => { document.getElementById(idAffichage).innerHTML = res;})
+        .then(function(res) {
+          if(res.ok) {
+            res.text()
+            .then(res => { document.getElementById(idAffichage).innerHTML = res;})
+          } else {
+            //console.log('Mauvaise réponse du réseau');
+            let err =  "network error on ajax request";
+            window.location.assign("index.php?route=errors&action=ajaxError&err="+err);
+          }
+        })
+        .catch(function(error) {
+          let err =  error.message;
+          //console.log('Il y a eu un problème avec l\'opération fetch : ' + error.message);
+          window.location.assign("index.php?route=errors&action=ajaxError&err="+err);
+        });
       })
     })
   }
 }
-
 updatePrice();
 
 
@@ -143,20 +155,32 @@ if (document.querySelector("#searchProduct") !== null){
     let textToFind = document.querySelector('#searchProduct').value;
     // Faire un objet de type request
     let myRequest = new Request('index.php?route=products&action=getProductsByRequest', {
-        method  : 'POST',
-        body    : JSON.stringify({ textToFind : textToFind })
+      method  : 'POST',
+      body    : JSON.stringify({ textToFind : textToFind })
     })
-    // traitement de la réponse de 'getProductsByRequest' (array de produits)
+
+    // traitemeent de la promesse avec gestion des erreurs 
     fetch(myRequest)
-      // Récupère les données
-    .then(res => res.text())
-      // Exploite les données
-    .then(res => {
-        const anchor = document.getElementById("targetSearchProduct")
-        anchor.innerHTML = res;
-        // reconstruction de la nodelist des fenêtres de prix  
-        updatePrice();
+    .then(function(res) {
+      if(res.ok) {
+        res.text()
+        .then(res => {
+          const anchor = document.getElementById("targetSearchProduct")
+          anchor.innerHTML = res;
+          // reconstruction de la nodelist des fenêtres de prix  
+          updatePrice();
+        })
+      } else {
+        //console.log('Mauvaise réponse du réseau');
+        let err =  "network error on ajax request";
+        window.location.assign("index.php?route=errors&action=ajaxError&err="+err);
+      }
     })
+    .catch(function(error) {
+      let err =  error.message;
+      //console.log('Il y a eu un problème avec l\'opération fetch : ' + err);
+      window.location.assign("index.php?route=errors&action=ajaxError&err="+err);
+    });
   })
 }
 

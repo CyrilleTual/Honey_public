@@ -7,12 +7,14 @@
 
 @mixin vibes {
   animation-name: goodVibes;
-  animation-duration: 0.05s;
-  animation-iteration-count: 3;
+  animation-duration: .08s;
+  animation-timing-function: ease-in-out;
+  z-index: 100;
+  animation-fill-mode: forwards;
   @keyframes goodVibes {
-    from {transform: skew(0deg, 0deg);}
-    50% {transform: skew(2deg, -2deg); opacity: 0;}
-    to {transform: skew(-2deg, 2deg);}
+    from {transform: scale(1);}
+    10% {transform: scale(0.9); }
+    to {transform: scale(1.2);}
   }				
 }
 
