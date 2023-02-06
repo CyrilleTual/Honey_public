@@ -28,7 +28,8 @@ class RendersController
     private function handleRequest(): void
     {
         if ($this->view === 'default') {
-            header('Location: index.php?route=homePage&action=init');
+            $controller = new \Controllers\HomePageController();
+            $controller -> init();
             exit();
 
         } else {

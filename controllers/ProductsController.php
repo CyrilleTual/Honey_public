@@ -41,26 +41,25 @@ class ProductsController extends SecurityController
     public function displayFormProducts(): void
     {
 
-        if ($this->is_admin()) {
-            $data = [];
-            $valuesToDisplay = []; // pour recevoir les données à afficher sous forme d'un array .
-            // mise en place d'un token pour sécuriser la soumission du formulaire 
-            $model = new \Models\Tools();
-            $token = $model->randomChain(20);
-            $_SESSION['auth'] = $token;
-    
-            $model = new \Models\Products();
-            $valuesToDisplay = $model->getProductsByQuery(); // recup d'un tableau à afficher 
-            $data[0] = $token;
-            $data[1] = $valuesToDisplay;
-
-            new RendersController('admin/productsDisplay', $data);
-
-        } else {
+        if (!$this->is_admin()) {
             $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
             header('Location: index.php?route=homePage&action=init');
             exit();
         }
+
+        $data = [];
+        $valuesToDisplay = []; // pour recevoir les données à afficher sous forme d'un array .
+        // mise en place d'un token pour sécuriser la soumission du formulaire 
+        $model = new \Models\Tools();
+        $token = $model->randomChain(20);
+        $_SESSION['auth'] = $token;
+
+        $model = new \Models\Products();
+        $valuesToDisplay = $model->getProductsByQuery(); // recup d'un tableau à afficher 
+        $data[0] = $token;
+        $data[1] = $valuesToDisplay;
+
+        new RendersController('admin/productsDisplay', $data);
     }
 
     /** Affichage du formulaire de création d'un nouveau produit 

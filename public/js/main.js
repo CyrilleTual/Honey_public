@@ -24,34 +24,43 @@ if(document.querySelector("#uploadImage")!== null){
 /** *
  * Pour modal set de la src et affichage
  */
-if(document.querySelectorAll(".modal-trigger")!== null){
-  const btns = document.querySelectorAll(".modal-trigger");
-  btns.forEach(function(btn) {
-    // ecoute d'évenement click sur les container des vignettes
-    // pour que la loupe soit aussi cliquable 
-    btn.addEventListener('click',()=>{
-      // on récupère la valeur de la src de l'image 
-      const srcLoc  = btn.querySelector(" img ").src;
-      // et on l'insere dans la div cible
-      const div = document.querySelector(".modal-window");
-      div.innerHTML='<img id="largePic" src='+srcLoc+' alt="grande image">';
-      // on rend visible modal
-      document.querySelector(".modal-window").classList.toggle("visible")
+function setModal(){
+
+  if(document.querySelectorAll(".modal-trigger")!== null){
+    const btns = document.querySelectorAll(".modal-trigger");
+    btns.forEach(function(btn) {
+      // ecoute d'évenement click sur les container des vignettes
+      // pour que la loupe soit aussi cliquable 
+      btn.addEventListener('click',()=>{
+        // on récupère la valeur de la src de l'image 
+        const srcLoc  = btn.querySelector(" img ").src;
+        // et on l'insere dans la div cible
+        const div = document.querySelector(".modal-window");
+        div.innerHTML='<img id="largePic" src='+srcLoc+' alt="grande image">';
+        // on rend visible modal
+        document.querySelector(".modal-window").classList.toggle("visible")
+      });
     });
-  });
+  }
 }
+setModal();
+
 
 
 /** 
  * pour re-masquer une grande image (toggle de classe) / modal
  */
-if(document.querySelector(".modal-window")!== null){
-  const modal = document.querySelector('.modal-window')   
-    // ecoute au click sur le modal 
-    modal.addEventListener('click',()=>{
-      document.querySelector(".modal-window").classList.toggle("visible")
-    });
+function hideModal(){
+  if(document.querySelector(".modal-window")!== null){
+    const modal = document.querySelector('.modal-window')   
+      // ecoute au click sur le modal 
+      modal.addEventListener('click',()=>{
+        document.querySelector(".modal-window").classList.toggle("visible")
+      });
+  }
 }
+hideModal();
+
 
 /** Script de toogle class pour le bouton burger 
  * Pas de toggle de class sur isClosed / isOpen car pas de class initialement
@@ -169,6 +178,8 @@ if (document.querySelector("#searchProduct") !== null){
           anchor.innerHTML = res;
           // reconstruction de la nodelist des fenêtres de prix  
           updatePrice();
+          setModal();
+          hideModal();
         })
       } else {
         //console.log('Mauvaise réponse du réseau');

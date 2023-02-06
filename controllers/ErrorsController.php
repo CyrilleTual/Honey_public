@@ -22,19 +22,25 @@ class ErrorsController
         // envoi d'un mail à l'admin ou si echec , message 
         $send=mail($to, $subject, $messageMail);
 
+        $date = date('d.m.Y h:i:s');
+        error_log("*** Le ".$date." Erreur: " .$messageAdmin . PHP_EOL,3,'./logErrors.log' );
+
+
         if ($send){
              $message ="L'administrateur du site est prévenu, nous allons tout mettre en oeuvre pour rétablir la situation dans les meuilleurs délais.";
         }else{
-             $message = 'Si la situation persiste merci de bien vouloir contacter l\'administrateur de ce site par mail en précisant le code erreur suivant :'.($e->getCode());
+             $message = 'Si la situation persiste merci de bien vouloir contacter l\'administrateur de ce site par mail';
         }
         include 'public/views/errorsWebSite.phtml';
         exit();
     }
     public function ajaxError(): void
     {
-        $error=  htmlspecialchars(trim($_GET['err'])) ;
+        $messageAdmin=  htmlspecialchars(trim($_GET['err'])) ;
+        $date = date('d.m.Y h:i:s');
+        error_log("*** Le " . $date . " Erreur Ajax : " . $messageAdmin . PHP_EOL, 3, './logErrors.log');
 
-        $message = 'Si la situation persiste merci de bien vouloir contacter l\'administrateur de ce site par mail en précisant le code erreur suivant : Erreur ajax,  ' . $error;
+        $message = 'Si la situation persiste merci de bien vouloir contacter l\'administrateur de ce site par mail';
        
         include 'public/views/errorsWebSite.phtml';
         exit();
