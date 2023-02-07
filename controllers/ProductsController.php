@@ -1,6 +1,7 @@
 <?php
-
 namespace Controllers;
+
+
 
 class ProductsController extends SecurityController
 {
@@ -174,6 +175,7 @@ class ProductsController extends SecurityController
                 && array_key_exists('description', $_POST)
                 && array_key_exists('infos', $_POST)
                 && array_key_exists('status', $_POST)){
+
 
                 $addProduct = [
                     'addCat'                => trim(($_POST['category'])),

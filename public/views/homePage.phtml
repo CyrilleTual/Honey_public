@@ -1,4 +1,5 @@
 <div class="homePage wrapper">
+    <?php require_once('errors.inc.phtml'); ?>
     <h1>
         Le miel dans tous ses états
     </h1>
@@ -12,7 +13,7 @@
             <?php endif; ?>
             <p class="content last">
                 <small> News N° <?= htmlspecialchars($data['input']['last']["id_news"]); ?> du <?= htmlspecialchars(date_format(date_create($data['input']['last']["date"]), 'd/m/y')); ?></small><br>
-                <?= nl2br((htmlspecialchars($data['input']['last']["text"])),false); ?>
+                <?= nl2br((htmlspecialchars($data['input']['last']["text"])), false); ?>
             </p>
             <!-- condition si pas de photo -->
             <?php if ((($data['input']['last']['picture'])) !== '') : ?>
@@ -35,7 +36,7 @@
 
 
     <!-- Les 5 news suivants la première et actives sont affichées -->
-    <?php if (isset($data['input']['news']) && ($data['input']['news'] !== "")) : ?>  
+    <?php if (isset($data['input']['news']) && ($data['input']['news'] !== "")) : ?>
         <?php foreach ($data['input']['news'] as $key => $news) : ?>
             <article class="news">
                 <?php if (htmlspecialchars($news["title"]) !== "") : ?>
@@ -43,7 +44,7 @@
                 <?php endif; ?>
                 <?php if (htmlspecialchars($news["text"]) !== "") : ?>
                     <p>
-                        <?= nl2br((htmlspecialchars($news["text"])),false); ?>
+                        <?= nl2br((htmlspecialchars($news["text"])), false); ?>
                     </p>
                 <?php endif; ?>
                 <!-- condition si pas de photo -->

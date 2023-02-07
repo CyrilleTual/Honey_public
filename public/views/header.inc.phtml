@@ -102,6 +102,11 @@
                     <li class="drop-item">
                         <a href="index.php?route=user&action=displayFormAdminUsers"> Utilisateurs </a>
                     </li>
+                     <?php if (isset(($_SESSION['logErrors'])) && (!empty($_SESSION['logErrors']))) : ?>
+                    <li class="drop-item">
+                        <a href="index.php?route=errors&action=manageErrors">Erreurs</a>
+                    </li>
+                    <?php endif ?>
                 </ul>
             </li>
         <?php endif ?>

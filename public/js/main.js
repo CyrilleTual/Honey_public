@@ -10,13 +10,23 @@
 if(document.querySelector("#uploadImage")!== null){
   const input = document.querySelector("#uploadImage");
   input.addEventListener("change", PreviewImage);
+  
   function PreviewImage(event){
+    // alert(this.files[0].size);
+    if(event.target.files[0].size>8000000){
+      alert("Fichier Beaaaaaucoup trop Gros !! "+this.files[0].size);
+      event.target.value="";
+    }
     if(event.target.files.length > 0){
       const src = URL.createObjectURL(event.target.files[0]);
       // on cible et remplie la zone de préview.
       const contener = document.querySelector("form .preview");
       contener.innerHTML='<img id="uploadPreview" src='+src+' alt="prévisualisation">';
       contener.style.display = "block"; // demasque l'affichage 
+  
+    }else{
+      const contener = document.querySelector("form .preview");
+      contener.innerHTML='';
     }
   }
 }
@@ -109,12 +119,10 @@ function updatePrice(){
   if (document.querySelectorAll(".selectItems") !== null){
 
     const myForms =document.querySelectorAll(".selectItems")
-
     myForms.forEach(function(form) {
       // recupère l'id et la valeur selectionnée (par défaut) pour chaque form 
       const id    = form.id
       const value = form.value
-
       // écoute d'évenement change sur les formulaires 
       form.addEventListener('change',()=>{
         const id    = form.id
@@ -147,6 +155,8 @@ function updatePrice(){
         });
       })
     })
+
+
   }
 }
 updatePrice();
@@ -159,7 +169,7 @@ if (document.querySelector("#searchProduct") !== null){
 
   let inputbox = document.querySelector("#searchProduct");
   // Ecoute d'évènement au keyup (recherche pour chaque caractère de +)
-  inputbox.addEventListener('keyup', () => { 
+  inputbox.addEventListener('keyup', function(){ 
     // Récupérer le texte de l'imput 
     let textToFind = document.querySelector('#searchProduct').value;
     // Faire un objet de type request
@@ -192,8 +202,14 @@ if (document.querySelector("#searchProduct") !== null){
       //console.log('Il y a eu un problème avec l\'opération fetch : ' + err);
       window.location.assign("index.php?route=errors&action=ajaxError&err="+err);
     });
+    
   })
 }
+
+
+
+
+
 
 /** Initialisation du slider ( nécessite jquery) 
  *  Plus d'infos sur https://kenwheeler.github.io/slick/ 
@@ -219,13 +235,11 @@ if(document.querySelectorAll(".formDelete")!== null){
   const forms = document.querySelectorAll(".formDelete");
   forms.forEach(function(form) {
     // on selectionne le bouton delete qui est dans le form
-    const btn = form.querySelector(".bouton")
+    const btn = form.querySelector(".bouton");
     // ecoute d'évenement click 
     btn.addEventListener('click',()=>{
-        if (confirm("Confirmez vous la suppression? "))
-        {
-        form.submit();
-        }
+        if (confirm("Confirmez vous la suppression? ")) 
+          form.submit();
     });
   });
 }

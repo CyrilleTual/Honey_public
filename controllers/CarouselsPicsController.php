@@ -28,8 +28,6 @@ class CarouselsPicsController
         }
     }
 
-
-
     /** Affichage du formulaire d'ajout - admin
      * @param array : $errors pour réaffichage apres erreur(s)
      */
@@ -72,8 +70,6 @@ class CarouselsPicsController
 
         new RendersController('admin/carouselDisplay', $data, $errors);
     }
-
-
 
     /** récupération des photos diponibles (staut actif)  (pour slider public)
      *  */  

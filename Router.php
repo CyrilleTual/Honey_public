@@ -23,14 +23,6 @@ class Router
 
     private function router()
     {
-        // si une vue est définie on appelle le render
-
-        // if (!empty($this->view) && $this->view !== null) {
-        //     var_dump(('idi'));
-        //     new RendersController();   
-        // }
-
-        // si pas de vue, mise en route du controller
 
         if (!empty($this->route) && $this->route !== null) {
             $strReplaceUp = ucfirst($this->route); // passe en majuscule la premiere lettre pour reconstituer le controller appelé
@@ -45,9 +37,6 @@ class Router
 
                 if (!empty($this->getAction()) && $this->getAction() !== null) {  // si une action est définie 
                     $_action = $this->getAction();
-
-                    //var_dump($classFinal); // exemple : "Controllers\ProductsController"
-                    //var_dump($_action); // exemple : "displayProductsOfOneCategory"
 
                     if (\method_exists($classFinal, $this->getAction())) $classFinal->$_action(); // on cheche la methode appellée
                     else 

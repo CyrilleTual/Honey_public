@@ -578,6 +578,8 @@ a {
 .bouton:hover {
   background-color: #fff;
   border: inset 2px;
+}
+.bouton:hover :not(.input) {
   animation-name: goodVibes;
   animation-duration: 0.08s;
   animation-timing-function: ease-in-out;
@@ -905,7 +907,7 @@ form .preview img {
 */
 .catalog img {
   display: block;
-  height: 70px;
+  min-width: 150px;
   object-fit: contain;
   margin: auto;
 }

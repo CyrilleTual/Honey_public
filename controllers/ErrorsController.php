@@ -3,7 +3,7 @@
 namespace Controllers;
 
 
-class ErrorsController
+class ErrorsController extends SecurityController
 {
     public function __construct()
     {
@@ -44,6 +44,51 @@ class ErrorsController
        
         include 'public/views/errorsWebSite.phtml';
         exit();
+    }
+
+    public function manageErrors($errors=null): void
+    {
+        if (!$this->is_admin()) {
+            $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
+            header('Location: index.php?route=homePage&action=init');
+            exit();
+        }
+        $data = [];
+        // token 
+        $model = new \Models\Tools();
+        $token = $model->randomChain(20);
+        $_SESSION['auth'] = $token;
+        $data['token'] = $token;
+           // recup des errors
+        $data['errors'] = $_SESSION['logErrors'];
+        new RendersController('admin/logErrorsManage', $data, $errors);
+    }
+
+
+    public function delLogErrors() :void
+    {
+        if (!$this->is_admin()) {
+            $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
+            header('Location: index.php?route=homePage&action=init');
+            exit();
+        }
+        // verification du token 
+
+        if (isset($_SESSION['auth']) && $_SESSION['auth'] != $_POST['token']){
+            $errors[] = "Une erreur est apparue !";
+            self::manageErrors($errors);
+            exit();
+        }else{
+            // on efface le contenu du fichier de log 
+            $fichier = fopen('logErrors.log', 'r+'); 
+            ftruncate($fichier, 0);
+            fclose($fichier);
+            // sans oublier d'effacer le contenu de la variable de session !!
+            $_SESSION['logErrors'] = [];
+            // et on revient sue la page acceuil 
+            header('Location: index.php?route=homePage&action=init');
+            exit();
+        }     
     }
 }
 

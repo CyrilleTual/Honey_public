@@ -1,0 +1,17 @@
+<?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
+    <?php require_once('public/views/errors.inc.phtml'); ?>
+    <h1>Erreurs graves survenues :</h1>
+    <ul>
+        <li>
+            <?php foreach ($data['input']['errors'] as $error) : ?>
+                <?= htmlspecialchars($error); ?></br>
+            <?php endforeach; ?>
+        </li>
+    </ul>
+    <form class="formDelete" action="?route=errors&action=delLogErrors" method="post">
+        <input type="hidden" name="token" value="<?= htmlspecialchars($data['input']['token']); ?>">
+        <input type="button" class="bouton input" value="supprimer le fichier de log ?">
+    </form>
+<?php else : ?>
+    <h2> Affichage non autorisé </h2>
+<?php endif; ?>

@@ -1,0 +1,5 @@
+*** Le 04.02.2023 02:56:28 Erreur: SQLSTATE[HY000] [1045] Access denied for user 'root'@'172.18.0.3' (using password: YES)
+*** Le 04.02.2023 02:56:53 Erreur: SQLSTATE[HY000] [1049] Unknown database 'honeygg'
+*** Le 04.02.2023 02:57:08 Erreur: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for www_mysql_projetj failed: Name or service not known
+*** Le 04.02.2023 03:17:11 Erreur Ajax : Can&#039;t find variable: x
+*** Le 06.02.2023 11:03:53 Erreur: SQLSTATE[HY000] [1049] Unknown database 'honejy'

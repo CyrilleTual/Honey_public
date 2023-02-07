@@ -68,7 +68,7 @@ class CarouselPics extends Model
 	 * @param int $limit : nombre de valeurs retournées
 	 * @return array enregistrement trouvé 
 	 */
-	public function getPicsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array
+	public function getPicsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array | false
 	{
 		$sql = 'SELECT  
                         *
@@ -84,7 +84,7 @@ class CarouselPics extends Model
 	 * @return array : l'enregistrement trouvé 
 	 */
 
-	public function findOnePic(int $id) :array
+	public function findOnePic(int $id) :array | false
 	{
 		return $this->findOne($id);
 	}
@@ -93,7 +93,7 @@ class CarouselPics extends Model
 	 * @param int $id_product : id du produit
 	 * @param array $datas : tableau des proriétés/valeurs de l'objet
 	 */
-	public function updatePic(int $id_product, array $datas)
+	public function updatePic(int $id_product, array $datas) :void
 	{
 		 $this->update($id_product, ($this->hydrate($datas)));
 	}

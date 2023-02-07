@@ -137,7 +137,10 @@ a{
 		&:hover{
 			background-color: #fff;
 			border: inset 2px;;
-			@include vibes; 
+			:not(.input){
+				@include vibes; 
+			}
+			
 		}
 }
 
@@ -442,7 +445,7 @@ form{
 .catalog {
 	img {
 		display: block;
-		height: 70px;
+		min-width: 150px;
 		object-fit: contain;
 		margin: auto;
 		}

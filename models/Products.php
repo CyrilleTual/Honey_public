@@ -122,7 +122,7 @@ class Products extends Model
      * @param int $limit : nombre maxi d'enregistrements retournés
      * @return array : tableau des enregistrements trouvés 
      */
-    public function getProductsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array
+    public function getProductsByQuery(string $byColumn = '1', string $datas = '1', string $order = " DESC ", int $limit = 500): array | false
     {
         $sql = 'SELECT  products.id_product,  products.productName, products.productRef, products.teaser, products.description, products.infos,products.picture, products.status,
                         categories.id_category, categories.categoryName
@@ -145,9 +145,9 @@ class Products extends Model
 
     /** selection d'un produit par id
      * @param int $id : id du produit à selectionner
-     * @return array : le produit cherché 
+     * @return array : le produit cherché ou false si existe pas 
      */
-    public function findOneProduct(int $id) :array 
+    public function findOneProduct(int $id) :array | false
     {
         return $this->findOne($id);
     }
@@ -171,7 +171,7 @@ class Products extends Model
      * @param int nombre de valeurs rerournées
      * @return array enregistrements trouvés
      */
-    public function getProductsPublic(string $crit1 = '1', string $crit2 = '1', string $data1 = '1', string $data2 = '1', string $order = " DESC ", int $limit = 500): array
+    public function getProductsPublic(string $crit1 = '1', string $crit2 = '1', string $data1 = '1', string $data2 = '1', string $order = " DESC ", int $limit = 500): array | false
     {
        
         $sql = 'SELECT  products.id_product, products.productName, products.productRef, products.teaser, products.description, products.infos, products.picture,
@@ -189,7 +189,7 @@ class Products extends Model
      * @param string $search : chaine de caractères recherchée 
      * @return array : tableau des enregistrements trouvés 
      */
-     public function getProductsAjax($search) : array
+     public function getProductsAjax($search) : array | false
      {
         $sql = 'SELECT  products.id_product, products.productName, products.productRef, products.teaser, products.description, products.infos, products.picture,
                 items.id_item
