@@ -1,25 +1,19 @@
 <?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
 
     <?php require_once('public/views/errors.inc.phtml'); ?>
-    <h1> Formulaire de création ou de modification d'items </h1>
+    <h1> Création ou modification d'items </h1>
 
     <div class="modal-window"></div>
-
-
-    <?php
-    if (isset($data['input']['item']) && (!empty($data['input']['item']))) {
-        $item = $data['input']['item'];
-    };
-    ?>
 
     <div>
         <h2>Produit : <?= htmlspecialchars($data['input']['product']["productName"]); ?></h2>
     </div>
+
     <span class="modal-trigger zoom">
         <img class="vignette" src='public/uploads/<?= htmlspecialchars($data['input']['product']['picture']); ?>' alt=" produit">
     </span>
 
-    <form class="tablo" action="?route=items&action=createItemProcess" method="POST">
+    <form action="?route=items&action=createItemProcess" method="POST">
 
         <input id="token" name="token" type="hidden" value="<?= htmlspecialchars($data['input']['token']) ?>">
         <input id="idProduct" name="idProduct" type="hidden" value="<?= htmlspecialchars($data['input']['product']['id_product']) ?>">
@@ -30,41 +24,46 @@
         <?php endif; ?>
 
 
-        <fieldset>
+        <fieldset class="formAdmin">
 
-            <legend>Merci de renseigner les information suivantes :</legend>
+            <legend>Merci de renseigner :</legend>
+            <div class="grid">
+                <label for="vatRef">Référence </label>
+                <input type="text" name="ref" id="vatRef" minlength="2" maxlength="30" required autofocus value="<?php echo (isset($item['itemRef'])) ? htmlspecialchars($item['itemRef']) : ""; ?>">
 
-            <label for="vatRef">Entrez la référence </label>
-            <input type="text" name="ref" id="vatRef" minlength="2" maxlength="30" required value="<?php echo (isset($item['itemRef'])) ? htmlspecialchars($item['itemRef']) : ""; ?>"><br>
+                <label for="pack">Conditionnement</label>
+                <input type="text" id="pack" name="pack" minlength="2" maxlength="30" required value="<?php echo (isset($item['pack'])) ? htmlspecialchars($item['pack']) : ""; ?>">
 
-            <label for="pack">Entrez le conditionnement</label>
-            <input type="text" id="pack" name="pack" minlength="2" maxlength="30" required value="<?php echo (isset($item['pack'])) ? htmlspecialchars($item['pack']) : ""; ?>"><br>
+                <label for="price">Prix unitaire</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" max="100000" required value="<?php echo (isset($item['price'])) ? htmlspecialchars($item['price']) : ""; ?>">
 
-            <label for="price">Entrez le prix unitaire</label>
-            <input type="number"  id="price" name="price" step="0.01"  min="0" max="100000" required value="<?php echo (isset($item['price'])) ? htmlspecialchars($item['price']) : ""; ?>"><br>
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" min="0" max="100000" required value="<?php echo (isset($item['stock'])) ? htmlspecialchars($item['stock']) : ""; ?>">
 
-            <label for="stock">Entrez le stock</label>
-            <input type="number" id="stock" name="stock" min="0" max="100000" required value="<?php echo (isset($item['stock'])) ? htmlspecialchars($item['stock']) : ""; ?>"><br>
+                <label for="vat">Tva applicable </label>
+                <select name="vat" id="vat">
+                    <?php foreach ($data['input']['vatToDisplay'] as $key => $valeur) : ?>
+                        <option value="<?= htmlspecialchars($valeur["id_vat"]); ?>" <?php if ((isset($item['itemRef'])) && (($item["id_vat"]) === ($valeur["id_vat"]))) echo "selected"; ?>>
+                            <?= htmlspecialchars($valeur["name"]); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-            <label for="vat">Tva applicable </label>
-            <select name="vat" id="vat">
-                <?php foreach ($data['input']['vatToDisplay'] as $key => $valeur) : ?>
-                    <option value="<?= htmlspecialchars($valeur["id_vat"]); ?>" <?php if ((isset($item['itemRef'])) && (($item["id_vat"]) === ($valeur["id_vat"]))) echo "selected"; ?>>
-                        <?= htmlspecialchars($valeur["name"]); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select><br>
         </fieldset>
 
-        <fieldset>
-            <legend>Produit actif? </legend>
-            <label class="radio" for="actif">Actif</label>
-            <input type="radio" id="actif" name="status" value="actif" checked>
-            <label class="radio" for="actif">Inactif</label>
-            <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($item['itemRef'])) && ($item["status"]) === ("inactif")) echo "checked"; ?>>
+        <fieldset class="formAdmin">
+            <div class="grid">
+                <legend>Produit actif? </legend>
+                <div>
+                    <label class="radio" for="actif">Actif</label>
+                    <input type="radio" id="actif" name="status" value="actif" checked>
+                    <label class="radio" for="actif">Inactif</label>
+                    <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($item['itemRef'])) && ($item["status"]) === ("inactif")) echo "checked"; ?>>
+                </div>
+            </div>
         </fieldset>
-
-        <input type="submit" value="Valider">
+        <input class="bouton" type="submit" value="Valider">
 
     </form>
     <a class="bouton" href="index.php?route=Items&action=displayItems&id=<?= htmlspecialchars($data['input']['product']['id_product']) ?>">Retour</a>

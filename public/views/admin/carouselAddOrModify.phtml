@@ -1,6 +1,6 @@
 <?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
 
-    <h1> Formulaire Carrousel </h1>
+    <h1>Carrousel</h1>
 
     <div class="modal-window"></div>
 
@@ -14,37 +14,48 @@
     <?php endif; ?>
 
 
-    <form method="post" enctype="multipart/form-data" action=" ?route=carouselsPics&action=AddOrModifyCarouselPic">
+    <form class="formAdmin" method="post" enctype="multipart/form-data" action=" ?route=carouselsPics&action=AddOrModifyCarouselPic">
 
         <input id="token" name="token" type="hidden" value="<?= $data['input']['token'] ?>">
 
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description" maxlength="100"  required placeholder=" description " value="<?php echo (isset($data['input']['pic']['description'])) ? htmlspecialchars($data['input']['pic']['description']) : ""; ?>">
-        <br>
+        <div class="grid">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" maxlength="100" required placeholder=" description " value="<?php echo (isset($data['input']['pic']['description'])) ? htmlspecialchars($data['input']['pic']['description']) : ""; ?>">
 
-        <label for="uploadImage">Photo</label>
-        <input type="file" id="uploadImage" name="picture"><br>
 
-        <?php if (isset($data['input']['pic'])) : ?>
-            <!-- on recupère l'id de la photo si modif -->
-            <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($data['input']['pic']["id_carousel"]); ?>">
-            <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
-            <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input']['pic']['picture']); ?>">
-        <?php endif; ?>
+            <label for="uploadImage">Photo</label>
+            <input type="file" id="uploadImage" name="picture">
+
+            <?php if (isset($data['input']['pic'])) : ?>
+                <!-- on recupère l'id de la photo si modif -->
+                <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($data['input']['pic']["id_carousel"]); ?>">
+                <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
+                <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input']['pic']['picture']); ?>">
+            <?php endif; ?>
+
+        </div>
+
 
         <fieldset>
-            <legend>Produit actif? </legend>
-            <label class="radio" for="actif">Actif</label>
-            <input type="radio" id="actif" name="status" value="actif" checked>
-            <label class="radio" for="actif">Inactif</label>
-            <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['pic'])) && ($data['input']['pic']['status']) === ("inactif")) echo "checked"; ?>>
+            <div class="grid">
+                <legend>Produit actif? </legend>
+                <div>
+                    <label class="radio" for="actif">Actif</label>
+                    <input type="radio" id="actif" name="status" value="actif" checked>
+                    <label class="radio" for="actif">Inactif</label>
+                    <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['pic'])) && ($data['input']['pic']['status']) === ("inactif")) echo "checked"; ?>>
+                </div>
+            </div>
         </fieldset>
 
         <div class="preview"></div>
 
-        <input type="submit" value="enregistrement">
+        <input class="bouton"  type="submit" value="enregistrement">
 
     </form>
+    <div>
+        <a class="bouton" href="index.php?route=carouselsPics&action=displayFormPicsSlider">Retour</a>
+    </div>
 
 <?php else : ?>
     <h2> Affichage non autorisé </h2>

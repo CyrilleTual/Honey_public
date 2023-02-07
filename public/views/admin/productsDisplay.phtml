@@ -16,6 +16,7 @@
                 <th>Teaser</th>
                 <th>Description</th>
                 <th>Infos</th>
+                <th>Statut</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -27,12 +28,16 @@
 
             <?php foreach ($data['input'][1] as $key => $valeur) : ?>
                 <tr>
+
                     <td><?= htmlspecialchars($valeur["productRef"]); ?> </td>
                     <td><?= htmlspecialchars($valeur["categoryName"]); ?></td>
                     <td><?= htmlspecialchars($valeur["productName"]); ?></td>
                     <td><?= nl2br((htmlspecialchars($valeur["teaser"])), false); ?></td>
-                    <td><?= nl2br((htmlspecialchars($valeur["description"])), false); ?></td>
+                    <td>
+                        <div class="dim"><?= nl2br((htmlspecialchars($valeur["description"])), false); ?></div>
+                    </td>
                     <td><?= htmlspecialchars($valeur["infos"]); ?></td>
+                    <td><?= htmlspecialchars($valeur["status"]); ?></td>
 
                     <?php if (($valeur['picture']) !== 'default.png') : ?>
                         <td>
@@ -51,6 +56,8 @@
                     <td>
                         <a class="bouton" href="?route=Products&action=editProduct&id=<?= htmlspecialchars($valeur['id_product']); ?>">Modifier</a>
                     </td>
+
+
                 </tr>
             <?php endforeach; ?>
         </tbody>

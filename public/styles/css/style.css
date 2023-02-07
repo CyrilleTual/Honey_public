@@ -462,13 +462,16 @@ img {
 body {
   margin: 0;
   min-height: 100vh;
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
   line-height: 1;
+  background-color: rgb(255, 255, 255);
+  color: rgb(79, 79, 79);
+  font-family: "Times", sans-serif;
   font-size: 1.6rem;
-  position: relative;
 }
 
 header, footer {
@@ -524,6 +527,10 @@ a {
   text-decoration: none;
 }
 
+small {
+  font-size: 1.3rem;
+}
+
 .pos {
   position: relative;
 }
@@ -568,34 +575,22 @@ a {
 **/
 .bouton {
   text-decoration: none;
+  display: block;
   padding: 5px 5px;
+  margin: 5px auto;
   background-color: rgb(237, 237, 237);
   color: rgb(79, 79, 79);
-  border-style: inset;
+  font-family: "Times", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
   border-radius: 12px;
-  border: 2px solid #46a28d;
+  border: 1px solid #46a28d;
 }
 .bouton:hover {
+  font-style: oblique;
   background-color: #fff;
-  border: inset 2px;
-}
-.bouton:hover :not(.input) {
-  animation-name: goodVibes;
-  animation-duration: 0.08s;
-  animation-timing-function: ease-in-out;
-  z-index: 100;
-  animation-fill-mode: forwards;
-}
-@keyframes goodVibes {
-  from {
-    transform: scale(1);
-  }
-  10% {
-    transform: scale(0.9);
-  }
-  to {
-    transform: scale(1.2);
-  }
+  border: 2px solid #1d5749;
+  padding: 4px;
 }
 
 .formDelete {
@@ -843,59 +838,70 @@ footer {
 /**********************************************************
 ** Mise en forme Generique pour les Formulaires ( admin )
 */
-form {
-  margin-top: 30px;
+.formAdmin {
+  margin-top: 10px;
+  max-width: 600px;
 }
-form fieldset {
+.formAdmin .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.formAdmin fieldset:not(.noSpaceAround) {
   margin-bottom: 15px;
   padding: 10px;
 }
-form legend {
-  padding: 0px 3px;
-  font-weight: bold;
-  font-variant: small-caps;
-}
-form label {
-  width: 220px;
+.formAdmin label, .formAdmin legend {
+  width: 180px;
   display: inline-block;
-  vertical-align: top;
-  margin: 6px;
+  margin: 6px auto;
+  text-align: right;
 }
-form em {
+.formAdmin .star {
   font-weight: bold;
   font-style: normal;
   color: #f00;
 }
-form input:focus {
+.formAdmin input:not(.bouton), .formAdmin textarea, .formAdmin select {
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 10px;
+  border-color: rgb(79, 79, 79);
+}
+.formAdmin *:focus {
   background: #eaeaea;
 }
-form input, form textarea {
+.formAdmin input:not(.bouton), .formAdmin textarea {
   width: 249px;
 }
-form textarea {
-  height: 100px;
+.formAdmin input.bouton:hover {
+  padding: 3px;
 }
-form select {
+.formAdmin textarea {
+  height: 150px;
+}
+.formAdmin select {
   width: 254px;
 }
-form input[type=checkbox] {
+.formAdmin input[type=radio] {
+  display: inline;
   width: 10px;
+  margin-bottom: 0;
 }
-form input[type=submit] {
+.formAdmin input[type=submit] {
   display: block;
   width: 150px;
-  padding: 10px;
-  border-radius: 20px;
   margin: auto;
 }
-form .radio {
+.formAdmin .radio {
   width: 50px;
 }
-form .preview {
+.formAdmin .preview {
   display: none;
   background-color: rgb(241, 247, 249);
+  margin-bottom: 5px;
 }
-form .preview img {
+.formAdmin .preview img {
   display: block;
   margin: auto;
   height: 200px;
@@ -918,6 +924,9 @@ form .preview img {
 .catalog tr,
 .catalog td {
   border: solid;
+}
+.catalog .dim {
+  max-height: 150px;
 }
 .catalog td {
   max-width: 400px;
@@ -1011,6 +1020,8 @@ form .preview img {
 */
 .seePass {
   cursor: pointer;
+  display: inline-block;
+  width: 20px;
 }
 .seePass .fa-eye {
   display: none;
@@ -1159,6 +1170,12 @@ form .preview img {
     width: 35%;
   }
 }
+.pageProductPublic .textProd .teaser {
+  font-weight: 700;
+}
+.pageProductPublic .textProd .infos {
+  font-style: italic;
+}
 .pageProductPublic .textProd .price {
   text-align: center;
 }
@@ -1187,7 +1204,6 @@ form .preview img {
 }
 .pageZoom a.bouton {
   display: inline-block;
-  margin-top: 2rem;
 }
 
 /**************************************************

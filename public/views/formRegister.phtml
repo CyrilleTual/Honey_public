@@ -1,7 +1,7 @@
 <h1>Création d'un compte !</h1>
 <?php require_once('errors.inc.phtml'); ?>
 
-<form class="tablo" action="?route=user&action=register" method="POST">
+<form action="?route=user&action=register" method="POST">
 
     <fieldset>
 
@@ -9,25 +9,30 @@
 
         <input id="token" name="token" type="hidden" value="<?= $data['input'] ?>">
 
-        <label for="firstname">Entrez votre prénom</label>
-        <input type="text" id="firstname" name="firstname" minlength="2" maxlength="30" placeholder="autorisés lettres, espaces, ' et -" pattern="^[a-zA-Z '-]+$" required title="autorisés lettres, espaces, ' et -" value="<?php echo (isset($_POST['firstname'])) ? ($_POST['firstname']) : ""; ?>"><br>
+        <div class="formAdmin">
+            <div class="grid">
+                <label for="firstname">Votre prénom</label>
+                <input type="text" id="firstname" name="firstname" minlength="2" maxlength="30" placeholder="autorisés lettres, espaces, ' et -" pattern="^[a-zA-Z '-]+$" required title="autorisés lettres, espaces, ' et -" value="<?php echo (isset($_POST['firstname'])) ? ($_POST['firstname']) : ""; ?>">
 
-        <!-- entre 2 et 30 caractères - pattern : lettres, espaces, tirets et apostrophes -->
-        <label for="lastname">Entrez votre nom</label>
-        <input type="text" id="lastname" name="lastname" minlength="2" maxlength="50" placeholder="autorisés lettres, espaces, ' et -" pattern="^[a-zA-Z '-]+$" required title="autorisés lettres, espaces, ' et -" value="<?php echo (isset($_POST['lastname'])) ? ($_POST['lastname']) : ""; ?>"><br>
+                <!-- entre 2 et 30 caractères - pattern : lettres, espaces, tirets et apostrophes -->
+                <label for="lastname">Votre nom</label>
+                <input type="text" id="lastname" name="lastname" minlength="2" maxlength="50" placeholder="autorisés lettres, espaces, ' et -" pattern="^[a-zA-Z '-]+$" required title="autorisés lettres, espaces, ' et -" value="<?php echo (isset($_POST['lastname'])) ? ($_POST['lastname']) : ""; ?>">
 
-        <label for="email">Entrez votre email</label>
-        <input type="email" id="email" name="email" maxlength="50" required value="<?php echo (isset($_POST['email'])) ? ($_POST['email']) : ""; ?>"><br>
+                <label for="email">Votre email</label>
+                <input type="email" id="email" name="email" maxlength="50" required value="<?php echo (isset($_POST['email'])) ? ($_POST['email']) : ""; ?>">
 
-        <label for="password">Choisissez un mot de passe</label>
-        <input type="password" id="password" name="password" title="8/30 caract,  Maj +Min +Chiffre+ caractère spécial " placeholder="8/30 caract,  Maj +Min +Chiffre+ caract spé " pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}" autocomplete="new-password" size="30" minlength="8" maxlength="30" required>
-        <span class="seePass"><i class="fa-solid fa-eye-slash"></i><i class="fa-solid fa-eye"></i></span>
-        <br>
+                <label for="password">Un mot de passe</label>
+                <div>
+                    <input type="password" id="password" name="password" title="8/30 caract,  Maj +Min +Chiffre+ caractère spécial " placeholder="8/30 caract,  Maj +Min +Chiffre+ caract spé " pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}" autocomplete="new-password" size="30" minlength="8" maxlength="30" required>
+                    <span class="seePass"><i class="fa-solid fa-eye-slash"></i><i class="fa-solid fa-eye"></i></span>
+                </div>
 
-        <label for="passwordConfirm">Confirmez le mot de passe choisi</label>
-        <input type="password" id="passwordConfirm" name="passwordConfirm" patern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}" size="30" minlength="8" maxlength="30" required><br>
+                <label for="passwordConfirm">Confirmation mot de passe</label>
+                <input type="password" id="passwordConfirm" name="passwordConfirm" patern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}" size="30" minlength="8" maxlength="30" required>
+            </div>
+        </div>
 
-        <input type="submit" value="Valider"> <br>
+        <input class="bouton" type="submit" value="Valider">
 
     </fieldset>
 

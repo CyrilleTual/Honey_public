@@ -12,44 +12,53 @@
         <span class="modal-trigger">
             <img class="vignette" src=' public/uploads/<?= htmlspecialchars($data['input']['new']['picture']); ?>' alt="image" />
         </span>
-
     <?php endif; ?>
 
-    <form method="post" enctype="multipart/form-data" action=" ?route=news&action=AddOrModifyNews">
+    <form class="formAdmin" method="post" enctype="multipart/form-data" action=" ?route=news&action=AddOrModifyNews">
 
         <input id="token" name="token" type="hidden" value="<?= htmlspecialchars($data['input']['token']) ?>">
 
-        <label for="titre">Titre</label>
-        <input type="text" name="title" id="titre" maxlength="100" placeholder=" titre " required value="<?php echo (isset($data['input']['new']['title'])) ? htmlspecialchars($data['input']['new']['title']) : ""; ?>">
-        <br>
+        <div class="grid">
+            <label for="titre">Titre</label>
+            <input type="text" name="title" id="titre" maxlength="100" placeholder=" titre " required value="<?php echo (isset($data['input']['new']['title'])) ? htmlspecialchars($data['input']['new']['title']) : ""; ?>">
 
 
-        <label for="texte">Texte</label>
-        <textarea name="text" id="text" placeholder="texte" maxlength="2500" cols="60" rows="20"><?php echo (isset($data['input']['new']['text'])) ? htmlspecialchars($data['input']['new']['text']) : ""; ?></textarea><br>
+
+            <label for="texte">Texte</label>
+            <textarea name="text" id="text" placeholder="texte" maxlength="2500" cols="60" rows="20"><?php echo (isset($data['input']['new']['text'])) ? htmlspecialchars($data['input']['new']['text']) : ""; ?></textarea>
 
 
-        <label for="picture">Photo</label>
-        <input type="file" id="uploadImage" name="picture"><br>
+            <label for="picture">Photo</label>
+            <input type="file" id="uploadImage" name="picture">
 
-        <?php if (isset($data['input']['new'])) : ?>
-            <!-- on recupère l'id de la photo si modif -->
-            <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($data['input']['new']["id_news"]); ?>">
-            <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
-            <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input']['new']['picture']); ?>">
-        <?php endif; ?>
+            <?php if (isset($data['input']['new'])) : ?>
+                <!-- on recupère l'id de la photo si modif -->
+                <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($data['input']['new']["id_news"]); ?>">
+                <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
+                <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input']['new']['picture']); ?>">
+            <?php endif; ?>
 
-        <fieldset>
-            <legend>News active? </legend>
-            <label class="radio" for=" actif">Actif</label>
-            <input type="radio" id="actif" name="status" value="actif" checked>
-            <label class="radio" for="actif">Inactif</label>
-            <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['new'])) && ($data['input']['new']['status']) === ("inactif")) echo "checked"; ?>>
+        </div>
+
+
+
+        <fieldset clas="formAdmin">
+            <div class="grid">
+                <legend>News active? </legend>
+                <div>
+                    <label class="radio" for=" actif">Actif</label>
+                    <input type="radio" id="actif" name="status" value="actif" checked>
+                    <label class="radio" for="actif">Inactif</label>
+                    <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['new'])) && ($data['input']['new']['status']) === ("inactif")) echo "checked"; ?>>
+                </div>
+
+            </div>
         </fieldset>
 
         <div class="preview">
             <img id="uploadPreview">
         </div>
-        <input type="submit" value="enregistrement">
+        <input class="bouton"  type="submit" value="enregistrement">
     </form>
     <div>
         <a class="bouton" href="index.php?route=news&action=displayFormNews">Retour</a>

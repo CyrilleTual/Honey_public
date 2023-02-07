@@ -7,14 +7,16 @@
 body {
 	margin: 0;
 	min-height: 100vh;
+	position:relative;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: space-between; // pour le cas où le contenu moins haut que l'affichage
 	line-height: 1;
+	background-color: $color-1;
+  	color: $font-dark;
+	font-family: $fontBasic;
 	font-size: map-get($policeSize, basic);
-	//@extend %fond;
-	position:relative;
 }
 
 
@@ -57,7 +59,7 @@ main {
 }
 h1{
 	font-size: map-get($policeSize, grosTitre);
-	font-family:  'Montserrat', sans-serif;
+	font-family: $fontTitles;
 	font-weight: 300;
 	text-align: center;
 	text-transform: lowercase;
@@ -77,6 +79,9 @@ h2{
 
 a{
 	text-decoration: none;
+}
+small{
+	font-size: 1.3rem;
 }
 .pos{
 	position: relative;
@@ -128,20 +133,22 @@ a{
 **/
 .bouton {
 	text-decoration: none;
+	display: block;
 	padding: 5px 5px;
+	margin: 5px auto;
 	background-color: $color-4; 
-	color:$font-dark;
-	border-style:inset;
+	color: $font-dark;
+	font-family: $fontBasic;
+	font-size: map-get($policeSize, basic);
+	line-height: 1;
 	border-radius: 12px;
-	border: 2px solid #46a28d;
-		&:hover{
-			background-color: #fff;
-			border: inset 2px;;
-			:not(.input){
-				@include vibes; 
-			}
-			
-		}
+	border: 1px solid #46a28d;
+	&:hover{
+		font-style: oblique;
+		background-color: #fff;
+		border: 2px solid #1d5749;
+		padding: 4px;
+	}
 }
 
 .formDelete{
@@ -372,53 +379,72 @@ footer{
 ** Mise en forme Generique pour les Formulaires ( admin )
 */
 
-form{
-	margin-top :30px;
-	fieldset {
+.formAdmin{
+	margin-top :10px;
+	max-width: 600px;
+	
+	
+
+	.grid{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap : 10px;
+
+	}
+
+	fieldset:not(.noSpaceAround) {
 		margin-bottom: 15px;
 		padding: 10px;
 	}
-	legend {
-		padding: 0px 3px;
-		font-weight: bold;
-		font-variant: small-caps;
-	}
-	label {
-		width: 220px;
+
+	label, legend {
+		width: 180px;
 		display: inline-block;
-		vertical-align: top;
-		margin: 6px;
+		margin: 6px auto;
+		text-align: right;
+		
 	}	
-	em {  // pour les astérisque obligatoires
+
+	.star {  // pour les astérisque obligatoires
 		font-weight: bold;
 		font-style: normal;
 		color: #f00;
 	}
-	input:focus {
+	input:not(.bouton), textarea, select{
+		border-radius: 5px;
+		border-width: 1px;
+		padding: 10px;
+		border-color: $font-dark;
+	}
+	*:focus {
 		background: #eaeaea;
 	}
 	
-	input, textarea {
+	input:not(.bouton), textarea {
 		width: 249px;
+	}
+
+	input.bouton:hover{
+		padding: 3px;
 	}
 	
 	textarea {
-		height: 100px;
+		height: 150px;
 	}
 	
 	select {
 		width: 254px;
 	}
 	
-	input[type=checkbox] {
+	input[type=radio] {
+		display: inline;
 		width: 10px;
+		margin-bottom: 0;
 	}
 	
 	input[type=submit] {
 		display: block;
 		width: 150px;
-		padding: 10px ;
-		border-radius: 20px;
 		margin: auto;
 	}
 
@@ -429,6 +455,7 @@ form{
 	.preview{
 		display: none;
 		background-color: rgb(241, 247, 249);
+		margin-bottom: 5px;
 		img{
 		display: block;
 		margin: auto;
@@ -457,6 +484,10 @@ form{
 	tr,
 	td {
 		border: solid;
+	}
+
+	.dim{
+		max-height: 150px;
 	}
 
 	td {
@@ -534,6 +565,8 @@ form{
 */
 .seePass{
 	cursor: pointer;
+	display: inline-block;
+	width: 20px;
 	.fa-eye{
 		display: none;
 	}
@@ -702,6 +735,15 @@ form{
 		.items{
 			@extend %flex-center;
 		}
+
+		.teaser{
+			font-weight: 700;
+		}
+
+		.infos{
+			font-style: italic;
+		}
+
 		.price{
 			text-align: center;
 		}
@@ -735,7 +777,6 @@ form{
 	}
 	a.bouton{
 		display: inline-block;
-		margin-top: $pad;
 	}
 }
 

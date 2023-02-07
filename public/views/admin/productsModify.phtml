@@ -1,63 +1,69 @@
 <?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin' && (($_SESSION['user'])['status']) === 'actif') : ?>
 
+    <h1>Modification d'un produit</h1>
+    <small class="asterisk">(Les champs marqués avec une * sont obligatoires)</small>
+
     <?php require_once('public/views/errors.inc.phtml'); ?>
-
-    <h1> Formulaire de Modification du produit </h1>
-
-
     <div class="modal-window"></div>
 
-    <form method="post" enctype="multipart/form-data" action=" ?route=Products&action=AddOrModifyProductProcess">
+    <form class="formAdmin" method="post" enctype="multipart/form-data" action=" ?route=Products&action=AddOrModifyProductProcess">
 
         <input id="token" name="token" type="hidden" value="<?= $data['input'][0] ?>">
         <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($data['input'][2]["id_product"]); ?>">
 
-        <label for="category">Categorie</label>
-        <select name="category" id="category">
-            <?php foreach ($data['input'][1] as $key => $valeur) : ?>
-                <option value="<?= htmlspecialchars($valeur["id_category"]); ?>" <?php if (($data['input'][2]["id_category"]) === ($valeur["id_category"])) echo "selected"; ?>><?= htmlspecialchars($valeur["categoryName"]); ?></option>
-            <?php endforeach; ?>
-        </select><br>
+        <div class="grid">
+            <label for="category">Categorie<span class="star">*</span></label>
+            <select name="category" id="category">
+                <?php foreach ($data['input'][1] as $key => $valeur) : ?>
+                    <option value="<?= htmlspecialchars($valeur["id_category"]); ?>" <?php if (($data['input'][2]["id_category"]) === ($valeur["id_category"])) echo "selected"; ?>><?= htmlspecialchars($valeur["categoryName"]); ?></option>
+                <?php endforeach; ?>
+            </select>
 
 
-        <label for="productName">Nom du produit</label>
-        <input type="text" id="productName" name="productName" maxlength="100" required value="<?= htmlspecialchars($data['input'][2]["productName"]); ?>" placeholder="le nom du produit"> <br>
+            <label for="productName">Nom du produit<span class="star">*</span></label>
+            <input type="text" id="productName" name="productName" maxlength="100" required value="<?= htmlspecialchars($data['input'][2]["productName"]); ?>" placeholder="le nom du produit">
 
-        <label for="reference">Reférence</label>
-        <input type="text" id="reference" name="reference" maxlength="50" required value="<?= htmlspecialchars($data['input'][2]["productRef"]); ?>" placeholder="la référence de produit"> <br>
+            <label for="reference">Reférence<span class="star">*</span></label>
+            <input type="text" id="reference" name="reference" maxlength="50" required value="<?= htmlspecialchars($data['input'][2]["productRef"]); ?>" placeholder="la référence de produit">
 
-        <label for="teaser">Description courte</label>
-        <input type="text" id="teaser" name="teaser" maxlength="255" value="<?= htmlspecialchars($data['input'][2]["teaser"]); ?>" placeholder="description courte"> <br><br>
+            <label for="teaser">Description courte</label>
+            <input type="text" id="teaser" name="teaser" maxlength="255" value="<?= htmlspecialchars($data['input'][2]["teaser"]); ?>" placeholder="description courte 1 seule ligne">
 
-        <label for="description">Description</label>
-        <textarea name="description" id="description" maxlength="2000" placeholder="la description du produit"><?= htmlspecialchars($data['input'][2]["description"]); ?></textarea><br>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" maxlength="2000" placeholder="la description du produit"><?= htmlspecialchars($data['input'][2]["description"]); ?></textarea>
 
-        <label for="infos">Infos</label>
-        <input type="text" id="infos" name="infos" maxlength="150" value="<?= htmlspecialchars($data['input'][2]["infos"] ?? ""); ?>" placeholder="infos"> <br>
+            <label for="infos">Infos</label>
+            <input type="text" id="infos" name="infos" maxlength="150" value="<?= htmlspecialchars($data['input'][2]["infos"] ?? ""); ?>" placeholder="infos">
 
-        <label for="pic">Photo</label>
-        <span class="modal-trigger">
-            <img class="vignette" id="pic" src='public/uploads/<?= htmlspecialchars($data['input'][2]['picture'] ?? ""); ?>' alt="produit">
-        </span>
+            <span>Photo existante</span>
+            <span class="modal-trigger">
+                <img class="vignette" id="pic" src='public/uploads/<?= htmlspecialchars($data['input'][2]['picture'] ?? ""); ?>' alt="produit">
+            </span>
 
-        <input type="file" id="uploadImage" name="picture"><br>
-        <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
-        <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input'][2]['picture']); ?>">
+            <label for="pic">Nouvelle photo ?</label>
+            <input type="file" id="uploadImage" name="picture">
+            <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
+            <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input'][2]['picture']); ?>">
+
+        </div>
+
 
         <fieldset>
-            <legend>Produit actif? </legend>
-            <label class="radio" for="actif">Actif</label>
-            <input type="radio" id="actif" name="status" value="actif" <?php if (($data['input'][2]["status"]) === ("actif")) echo "checked"; ?>>
-            <label class="radio" for="actif">Inactif</label>
-            <input type="radio" id="inactif" name="status" value="inactif" <?php if (($data['input'][2]["status"]) === ("inactif")) echo "checked"; ?>>
+            <div class="grid">
+                <legend>Produit actif? </legend>
+                <div>
+                    <label class="radio" for="actif">Actif</label>
+                    <input type="radio" id="actif" name="status" value="actif" <?php if (($data['input'][2]["status"]) === ("actif")) echo "checked"; ?>>
+                    <label class="radio" for="actif">Inactif</label>
+                    <input type="radio" id="inactif" name="status" value="inactif" <?php if (($data['input'][2]["status"]) === ("inactif")) echo "checked"; ?>>
+                </div>
+            </div>
         </fieldset>
 
         <div class="preview">
             <img id="uploadPreview" alt="prévisualisation">
         </div>
-
-        <input type="submit" value="enregistrement">
-
+        <input class="bouton"  type="submit" value="enregistrement">
     </form>
     <div>
         <a class="bouton" href="index.php?route=products&action=displayFormProducts">Retour</a>

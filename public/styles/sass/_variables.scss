@@ -3,26 +3,26 @@
 $color-1:rgba(255,255,255,1);
 $color-2:rgba(220,220,220,0.8);
 $color-3:rgba(240, 200, 16, 1); // couleur des alvéoles
-$color-4:rgba(237,237,237,1); // fond principal 
+$color-4:rgba(237,237,237,1); // 
 $color-5:rgba(248,251,254, 1); // boutons de nav
 $color-6:rgba(76, 158, 29, 1);
-//$color-miel:rgba(215,198,18,1);
+
 
 
 $color-success: green;
 $color-error: red;
 $color-info: blue;
 $color-link: rgba(13,94,150,1);
-
-// $primary: #907dda;
-// $accent: #e5e4ea;
 // $font-light: #e7e6f1;
 $font-dark: rgba(79,79,79,1);
 
 // pour les padding standard 
 $pad: 2rem;
 
-$fontLogo: 'Montserrat', sans-serif;;
+$fontLogo: 'Montserrat', sans-serif;
+$fontTitles: 'Montserrat', sans-serif;
+$fontBasic: 'Times',sans-serif;
+
 
 $policeSize: (
   logo: 3rem,

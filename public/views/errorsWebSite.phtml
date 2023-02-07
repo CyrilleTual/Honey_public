@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-
+<!-- page minimaliste utilisé en cas de connexion indisponible à la Db -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,12 +38,9 @@
 
             <img src="public/medias/img/warning.gif" alt="Warning">
             <h1>Erreur Grave</h1>
-            <p>Une erreur grave est survenue,</p>
             <div class="message"><?= $message ?></div>
-            <p>Veuillez nous excuser pour la gène occasionnée.</p>
-
-            <!-- <p>Contact email : <a href="mailto:cyrille.tual+honey@gmail.com">cyrille.tual@gmail.com</a> </p> -->
-            <p>Contact email : <a href="mailto:<?= ADMIN_ADDRESS ?>"><?= ADMIN_ID ?></a> </p>
+            <p>Veuillez nous excuser pour la gène occasionnée.<br>
+            Contact email : <a href="mailto:<?= ADMIN_ADDRESS ?>"><?= ADMIN_ID ?></a> </p>
 
         </div>
     </main>

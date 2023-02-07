@@ -386,14 +386,14 @@ class UserController extends SecurityController
 
     /** Modification d'un utilisateur -  Affichage du formulaire  - admin
      */
-    public function modifyUser():void
+    public function modifyUser($errors=null):void
     {
 
         if($this->is_admin()){
             // on verifie la validité de l'id passé en get et si c'est ok on recupère les infos
             $ToModify = self::iduserByGetIsOK();
-            // on reverifie qu'il ne s'agir pas du super utilisateur ( id =1 )
-            if ($ToModify[0]['id_user'] !== 1) {
+            // on reverifie qu'il ne s'agir pas du super utilisateur ( id =1 ) ni à l'utilisateur courant 
+            if (($ToModify[0]['id_user'] !== 1) && ((htmlspecialchars(($_SESSION['user'])['id']))!== htmlspecialchars($ToModify[0]['id_user']))){
                 // mise en place d'un token
                 $model = new \Models\Tools();
                 $token = $model->randomChain(20);
@@ -401,11 +401,12 @@ class UserController extends SecurityController
                 $data['token'] = $token;
                 $data['user'] = $ToModify[0];
                 // affichage de la vue de la vue de modification 
-                new RendersController('admin/userModify', $data);
+                new RendersController('admin/userModify', $data, $errors);
                 exit();
             };
-            // si on tente d'agir sur le super utilidateur c'est du piratage !!
+            // pas net comme processus c'est du piratage !!
             session_destroy();
+            $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
             header('Location: index.php?route=homePage&action=init');
             exit();
         }else{
@@ -422,9 +423,11 @@ class UserController extends SecurityController
     public function modifyUserProcess():void 
     {
         if ($this->is_admin()) {
-            // protection si tentative modif super-utilisateur
-            if($_POST['idUser'] == 1){
+            // protection si tentative modif super-utilisateur et de l'utilisarteur courant
+            if(($_POST['idUser'] == 1)|| ((htmlspecialchars(($_SESSION['user'])['id'])) === htmlspecialchars($_POST['idUser']))){
+               
                 session_destroy();
+                $_SESSION['message']  = "Vous n'êtes pas autorisé à effectuer cette action.";
                 header('Location: index.php?route=homePage&action=init');
                 exit();
             }
