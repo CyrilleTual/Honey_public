@@ -1,4 +1,32 @@
-/\*\*
+Projet site vitrine de Vincent Petit - Apiculteur -
+
+Il s'agit dans un premier temps uniquement d'un site vitrine pour présenter les produits et accroître 
+L’aspect "professionnel" de Vincent Petit.
+La distribution des produits est assurée par un réseau de magasins partenaires.
+ MAIS Vincent Petit souhaite que l'on  puisse éventuellement faire évoluer vers des fonctionnalités de site marchand.
+Le projet a été mené dans ce sens. 
+
+
+Adresse du site : https://cyrilletual.sites.3wa.io/projet/index.php
+Accès administrateur : https://cyrilletual.sites.3wa.io/projet/index.php?view=jesuisadminetjemeK@neckt
+
+Compte administrateur de demo : gogo@gmail.com  / Admin@1234
+Possibilité de créer un compte par le lien administrateur (à terme sera intégré dans la barre de navigation)
+Celui-ci sera par défaut un compte client (modifiable depuis un compte admin)
+
+Site en fonction (version en attente de validation) : https://vincentpetit.000webhostapp.com/index.php
+
+Attention : lors de l'accès administrateur il y aura un message avertissant des dernières erreurs "graves"
+Ceci est uniquement pour montrer cette fonctionnalité de log des erreurs, vous pouvez vider ce fichier par 
+Administration -> Erreurs -> Supprimer le fichier de log 
+
+Il y a un répertoire "3WaPourCorrecteur" avec 
+- un export de la base (honey.sql) 
+- deux captures d'écran de la structure de la base : celle en utilisation aujourd’hui (structure_projet.jpg)
+et celle de la structure à terme (évolution vers site marchand) (structure_base_complete.jpg)
+
+
+
 
 - Utilisation des méthodes de la classe Model :
 
@@ -32,24 +60,13 @@ etc.....
 Méthodes disponibles à travers la classe 'MODEL' :
 
 1. Méthode de type CREATE :
-   $this->create($model);
-
-2. Méthodes de type READ :
-
-   - $this->findAll();
-   - $this->findBy($params);
-     Methode à utiliser avec un tableau de paramètres :
-     $params = [
-     'id' => 28,
-     'lastName' => "*BRAVO mon gars! **"
-     ];
+ 
+2. Méthodes de type READ : 
 
 3. Méthode de type UPDATE :
-   $this->update($valID, $model);
-   A utiliser en fournissant l'id de l'enregistrement à updater ex: $valID = 33;
-
+  
 4. Méthode de type DELETE :
-   $this->delete($valID); avec par ex: $valID = 33;
+  
 
 5. Méthode spéciale : hydratation automatique
    $this->hydrate($datas);
@@ -66,15 +83,14 @@ Remarque : on peut appmliquer en une seule ligne " $this->create($this->hydrate(
 
 ---
 
-Gestion des erreurs : on dispose d'un model permetant de gérer le texte des messages d'erreur.
-Voir dans models/ErrorMessages.php pour mode d'emploi
+Gestion des erreurs : Les erreurs "graves" font l'objet d'une journalisation par un fichier logErrors.log
+Si il a y des erreurs, lors de sa connexion l'administrateur est prévenu
+Il peut effacer directement le fichier de log
+Ceci concerne les erreurs non lièes à l'utilisateur : 
+- problèmes d'accès à la Db
+- problèmes de requètes SQL (tables indisponibles ...)
+- problèmes lors des requètes AJAX
 
 ---
 
-Securisation des formulaires
 
--> au niveau de la saisie, dans le HTML formulaire d'enregistrement:
-Champs nom et premom : entre 2 et 30 caractères - patern : lettres, espaces, tirets et apostrophes
-email :  type email (plus de valeur semantique que pattern)
-Mot de passe au mini 6 caractères 1 Maj, 1Min, 1 chiffre
-Tous les champs sont Required

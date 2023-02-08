@@ -28,20 +28,9 @@ class Model
 
     /***********************************************************************************
      * Définition de méthodes génériques pour les manupulations de la base de données *
-     *********************************************************************************/
+     ********************************************************************************/
 
-    /********************************************************************************
-     * findAll -> retourne tous les enregistrements d'une tabble  (READ)
-     * @param : aucun, se sert de l'objet sur lequel la méthode est utilisée
-     * @return array Tableau des enregistrements trouvés  
-     */
-    // protected function findAll(): array | false
-    // {
-    //     $query = $this->pdo->prepare("SELECT * FROM $this->table ");
-    //     $query->execute();
-    //     return $query->fetchAll();
-    // }
-    // // utilisation : return $this->findAll(); 
+
 
     /** findByQuery ->  attend en paramètre une requète sql et un tableau de paramètres
      * @param string $sdl -> requète préparée 
@@ -61,8 +50,7 @@ class Model
         }
         
     }
-    // utilisation -> voir le README
-
+   
 
     /** findOneByQuery -> ATTENTION DIFFERENCE avec la précédente FETCH et non FETCH ALL  adapté pour 1 seul retour
      * @param string $sdl -> requète préparée 
