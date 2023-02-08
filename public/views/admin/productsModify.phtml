@@ -3,8 +3,11 @@
     <h1>Modification d'un produit</h1>
     <small class="asterisk">(Les champs marqués avec une * sont obligatoires)</small>
 
+    <!-- affichage eventuel des erreurs -->
     <?php require_once('public/views/errors.inc.phtml'); ?>
+    <!-- pour affichage en grand des vignettes -->
     <div class="modal-window"></div>
+    
 
     <form class="formAdmin" method="post" enctype="multipart/form-data" action=" ?route=Products&action=AddOrModifyProductProcess">
 
@@ -35,12 +38,12 @@
             <label for="infos">Infos</label>
             <input type="text" id="infos" name="infos" maxlength="150" value="<?= htmlspecialchars($data['input'][2]["infos"] ?? ""); ?>" placeholder="infos">
 
-            <span>Photo existante</span>
+            <span class="news">Photo existante</span>
             <span class="modal-trigger">
                 <img class="vignette" id="pic" src='public/uploads/<?= htmlspecialchars($data['input'][2]['picture'] ?? ""); ?>' alt="produit">
             </span>
 
-            <label for="pic">Nouvelle photo ?</label>
+            <label for="uploadImage">Nouvelle photo ? <?php include "infoImg.phtml" ?></label>
             <input type="file" id="uploadImage" name="picture">
             <!-- Pour pouvoir recuperer l'ancienne photo si pas de changement -->
             <input type="hidden" id="photo_recup" name="photo_recup" value="<?= htmlspecialchars($data['input'][2]['picture']); ?>">
@@ -50,7 +53,7 @@
 
         <fieldset>
             <div class="grid">
-                <legend>Produit actif? </legend>
+                <span class="right">Produit actif? </span>
                 <div>
                     <label class="radio" for="actif">Actif</label>
                     <input type="radio" id="actif" name="status" value="actif" <?php if (($data['input'][2]["status"]) === ("actif")) echo "checked"; ?>>
@@ -61,9 +64,8 @@
         </fieldset>
 
         <div class="preview">
-            <img id="uploadPreview" alt="prévisualisation">
         </div>
-        <input class="bouton"  type="submit" value="enregistrement">
+        <input class="bouton" type="submit" value="enregistrement">
     </form>
     <div>
         <a class="bouton" href="index.php?route=products&action=displayFormProducts">Retour</a>

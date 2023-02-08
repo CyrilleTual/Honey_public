@@ -3,6 +3,7 @@
 @import "../sass/_placeholders";
 @import "../sass/_mixins";
 @import "../sass/_burger";
+@import "../sass/_infoBubble";
 
 body {
 	margin: 0;
@@ -391,13 +392,10 @@ footer{
 	margin-top :10px;
 	max-width: 600px;
 	
-	
-
 	.grid{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap : 10px;
-
 	}
 
 	fieldset:not(.noSpaceAround) {
@@ -405,7 +403,7 @@ footer{
 		padding: 10px;
 	}
 
-	label, legend {
+	label, legend, .news, .right {
 		width: 180px;
 		display: inline-block;
 		margin: 6px auto;
@@ -948,7 +946,7 @@ footer{
 	a {
 		text-decoration:underline;
 	}
-	p{
+	p, address{
 		padding-left: $pad;
 	}
 }

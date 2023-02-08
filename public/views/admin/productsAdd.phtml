@@ -32,14 +32,14 @@
             <label for="infos">Infos</label>
             <input type="text" id="infos" name="infos" maxlength="150" placeholder="infos">
 
-            <label for="uploadImage">Photo</label>
+            <label for="uploadImage">Photo<?php include "infoImg.phtml" ?></label>
             <!-- attention ecoute d'évenement sur l'input pour le preview  -->
             <input type="file" id="uploadImage" name="picture" accept="image/*">
         </div>
 
         <fieldset>
             <div class="grid">
-                <legend>Produit actif ? </legend>
+                <span class="right">Produit actif ?</span>
                 <div>
                     <label class="radio" for="actif">Actif</label>
                     <input type="radio" id="actif" name="status" value="actif" checked>

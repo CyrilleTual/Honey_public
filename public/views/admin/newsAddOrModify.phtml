@@ -2,15 +2,13 @@
 
     <h1> Formulaire News </h1>
 
-    <div class="modal-window">
-        <img id="largePic" alt="grande image">
-    </div>
+    <div class="modal-window"></div>
 
     <?php require_once('public/views/errors.inc.phtml'); ?>
     <!-- Affichage de l'image si modification -->
     <?php if (isset($data['input']['new']) && ($data['input']['new']['picture']) !== "") : ?>
         <span class="modal-trigger">
-            <img class="vignette" src=' public/uploads/<?= htmlspecialchars($data['input']['new']['picture']); ?>' alt="image" />
+            <img class="vignette" src=' public/uploads/<?= htmlspecialchars($data['input']['new']['picture']); ?>' alt="image">
         </span>
     <?php endif; ?>
 
@@ -24,12 +22,16 @@
 
 
 
-            <label for="texte">Texte</label>
+            <label for="text">Texte</label>
             <textarea name="text" id="text" placeholder="texte" maxlength="2500" cols="60" rows="20"><?php echo (isset($data['input']['new']['text'])) ? htmlspecialchars($data['input']['new']['text']) : ""; ?></textarea>
 
 
-            <label for="picture">Photo</label>
+            <label for="uploadImage">Photo
+                <?php include "infoImg.phtml"?>
+            </label>
             <input type="file" id="uploadImage" name="picture">
+
+
 
             <?php if (isset($data['input']['new'])) : ?>
                 <!-- on recupère l'id de la photo si modif -->
@@ -42,23 +44,21 @@
 
 
 
-        <fieldset clas="formAdmin">
+        <fieldset>
             <div class="grid">
-                <legend>News active? </legend>
+                <span class="news">News active? </span>
                 <div>
-                    <label class="radio" for=" actif">Actif</label>
+                    <label class="radio" for="actif">Actif</label>
                     <input type="radio" id="actif" name="status" value="actif" checked>
                     <label class="radio" for="actif">Inactif</label>
                     <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['new'])) && ($data['input']['new']['status']) === ("inactif")) echo "checked"; ?>>
                 </div>
-
             </div>
         </fieldset>
+    
 
-        <div class="preview">
-            <img id="uploadPreview">
-        </div>
-        <input class="bouton"  type="submit" value="enregistrement">
+        <div class="preview"></div>
+        <input class="bouton" type="submit" value="enregistrement">
     </form>
     <div>
         <a class="bouton" href="index.php?route=news&action=displayFormNews">Retour</a>

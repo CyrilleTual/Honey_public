@@ -1,3 +1,5 @@
+<!-- logo et titre du site -->
+
 <div class="background">
     <div class="headerHaut wrapper">
         <img class="alv" src="./public/medias/img/alveole_fond_transparent.png" alt="alveoles stylisées">
@@ -18,10 +20,11 @@
 
 
 
+<!-- Barre de navigation -->
+
 <nav class="navbar wrapper">
-
+    <!-- logo du menu hamburger -->
     <div id="hamburger" class="hamburglar icon ">
-
         <div class="burger-icon">
             <div class="burger-container">
                 <!-- les 3span représentent les 3 traits -->
@@ -30,7 +33,6 @@
                 <span class="burger-bun-bot"></span>
             </div>
         </div>
-
         <!-- cercle svg autour des 3 traits horizontaux  -->
         <div class="burger-ring">
             <svg class="svg-ring">
@@ -38,14 +40,12 @@
                 <!-- M-> Move , C, S -> Curve Etc... -->
             </svg>
         </div>
-
         <!-- ce path "mask" permet l'animation du cercle  -->
         <svg class="svgZero">
             <mask id="mask">
                 <path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ff0000" stroke-miterlimit="10" stroke-width="4" d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4" />
             </mask>
         </svg>
-
         <div class="path-burger">
             <div class="animate-path">
                 <div class="path-rotation"></div>
@@ -53,13 +53,15 @@
         </div>
     </div>
 
+    <!-- pour voiler la page au survol d'un élément de la navbar  -->
     <div class="shadow displayNone"></div>
 
+    <!-- barrre de navigation -->
     <ul class="nav-menu displayNone">
         <li class="nav-item">
             <a href="index.php?route=homePage&action=init">Home</a>
         </li>
-        <!--  **************   Liste dynamique des listes disponibles ****************************  -->
+        <!--  ***   Liste dynamique (des catégories de) produits disponibles ******************  -->
         <li class="nav-item"><a class="pos" href=#>+ Nos produits + </a>
             <ul class="dropdownOnHover">
                 <li class="drop-item">
@@ -85,7 +87,7 @@
             <a href="?view=aPropos">Me découvrir</a>
         </li>
 
-        <!-- *********************************************************************************************** -->
+        <!-- ************************ si Administrateur **************************** -->
 
         <?php if (isset((($_SESSION['user'])['role'])) && (!empty($_SESSION['user'])) && (($_SESSION['user'])['role']) === 'admin') : ?>
             <li class="nav-item"><a class="pos" href=#>Administration + </a>
@@ -115,26 +117,8 @@
             <li class="nav-item"><a href="?route=User&action=logoutUser">LogOut</a></li>
         <?php endif; ?>
 
-        <!-- pour évolution du site vers la possibilité de commande en ligne -->
-
-        <!-- ?php else : ?>
-        <li class="nav-item"><a href="?route=user&action=displayFormRegister">register </a></li>
-        <li class="nav-item"><a href="?route=user&action=displayFormConnect"> login </a></li>
-        ?php endif ?> -->
-
-        <!-- pour évolution du site vers la possibilité de commande en ligne -->
-        <!-- <li class="nav-item">
-        <label for="btn2" class="show">Mon compte +</label>
-        <input type="checkbox" id="btn2">
-        <ul class="dropdown">
-            <li class="drop-item">
-                <a href="#">Mon Profil</a>
-            </li>
-            <li class="drop-item">
-                <a href="#">Articles</a>
-            </li>
-        </ul>
-        </li> -->
+        <!-- quand évolution du site vers la possibilité de commande en ligne -->
+        <!-- possibilité de créer un compte et de se loger depuis cette navbar -->
 
     </ul>
 </nav>

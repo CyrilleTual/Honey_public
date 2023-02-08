@@ -1,0 +1,22 @@
+.infoBubble {
+    display: inline;
+    cursor: help;
+
+    span{
+        position: absolute;
+        margin-top: -140px;
+        margin-left: 150px;
+        padding:15px;
+        border-radius:3px;
+        line-height: 1.5;
+        box-shadow:0 0 5px rgba(0,0,0,.5);
+        opacity:0;
+        transform:scale(0) rotate(-12deg);
+        transition:all .25s;
+    }
+    &:hover span, &:focus span{
+        transform:scale(1) rotate(0);
+        opacity:1;
+    }
+
+}

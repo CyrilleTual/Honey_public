@@ -2,56 +2,51 @@
 
     <?php require_once('public/views/errors.inc.phtml'); ?>
     <h1> Formulaire de contrôle utilisateur </h1>
-    <p>Modification possible du rôle et du statut</p>
-
+    <p>Modifications possibles :  rôle et statut</p>
 
     <form action="?route=user&action=modifyUserProcess" method="POST">
 
         <input id="token" name="token" type="hidden" value="<?= $data['input']['token'] ?>">
         <input id="idUser" name="idUser" type="hidden" value="<?= htmlspecialchars($data['input']['user']['id_user']) ?>">
 
+        <div class="formAdmin">
+            <div class="grid">
+                <label for="firstname">Prénom</label>
+                <input type="text" name="firtsname" id="firstname" value="<?php echo (isset($data['input']['user']['firstname'])) ? htmlspecialchars($data['input']['user']['firstname']) : ""; ?>" disabled>
 
-        <fieldset>
-            <legend>Voici les informations utilisateur :</legend>
+                <label for="lastname">Nom</label>
+                <input type="text" name="firtsname" id="lastname" value="<?php echo (isset($data['input']['user']['lastname'])) ? htmlspecialchars($data['input']['user']['lastname']) : ""; ?>" disabled>
 
-            <div class="formAdmin">
-                <div class="grid">
-                    <label for="firstname">Prénom</label>
-                    <input type="text" name="firtsname" id="firstname" value="<?php echo (isset($data['input']['user']['firstname'])) ? htmlspecialchars($data['input']['user']['firstname']) : ""; ?>" disabled>
-
-                    <label for="lastname">Nom</label>
-                    <input type="text" name="firtsname" id="lastname" value="<?php echo (isset($data['input']['user']['lastname'])) ? htmlspecialchars($data['input']['user']['lastname']) : ""; ?>" disabled>
-
-                    <label for="email">Email</label>
-                    <input type="text" name="firtsname" id="email" value="<?php echo (isset($data['input']['user']['email'])) ? htmlspecialchars($data['input']['user']['email']) : ""; ?>" disabled>
-                </div>
-
-                <fieldset class="noSpaceAround">
-                    <div class="grid">
-                        <legend>Rôle</legend>
-                        <div>
-                            <label class="radio" for="client">client</label>
-                            <input type="radio" id="client" name="role" value="client" checked>
-                            <label class="radio" for="client">admin</label>
-                            <input type="radio" id="admin" name="role" value="admin" <?php if ((isset($data['input']['user']['role'])) && ($data['input']['user']['role']) === ("admin")) echo "checked"; ?>>
-                        </div>
-                    </div>
-                </fieldset>
-
-                <fieldset class="noSpaceAround">
-                    <div class="grid">
-                        <legend>Statut</legend>
-                        <div>
-                            <label class="radio" for="actif">Actif</label>
-                            <input type="radio" id="actif" name="status" value="actif" checked>
-                            <label class="radio" for="actif">Inactif</label>
-                            <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['user']['status'])) && ($data['input']['user']['status']) === ("inactif")) echo "checked"; ?>>
-                        </div>
-                    </div>
-                </fieldset>
+                <label for="email">Email</label>
+                <input type="text" name="firtsname" id="email" value="<?php echo (isset($data['input']['user']['email'])) ? htmlspecialchars($data['input']['user']['email']) : ""; ?>" disabled>
             </div>
-            <input class="bouton" type="submit" value="Valider">
-        </fieldset>
+
+            <fieldset class="noSpaceAround">
+                <div class="grid">
+                    <span class="right">Rôle</span>
+                    <div>
+                        <label class="radio" for="client">client</label>
+                        <input type="radio" id="client" name="role" value="client" checked>
+                        <label class="radio" for="client">admin</label>
+                        <input type="radio" id="admin" name="role" value="admin" <?php if ((isset($data['input']['user']['role'])) && ($data['input']['user']['role']) === ("admin")) echo "checked"; ?>>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="noSpaceAround">
+                <div class="grid">
+                    <span class="right">Statut</span>
+                    <div>
+                        <label class="radio" for="actif">Actif</label>
+                        <input type="radio" id="actif" name="status" value="actif" checked>
+                        <label class="radio" for="actif">Inactif</label>
+                        <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['user']['status'])) && ($data['input']['user']['status']) === ("inactif")) echo "checked"; ?>>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <input class="bouton" type="submit" value="Valider">
+     
 
 
     </form>

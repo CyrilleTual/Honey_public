@@ -4,6 +4,7 @@
 
     <?php if ((isset($data['input']['valuesToDisplay'])) && !empty($data['input']['valuesToDisplay'])) : ?>
         <h2> Articles de type <?= htmlspecialchars($data['input']['valuesToDisplay'][0]["productName"]); ?></h2>
+
         <p> Dans la catégorie <?= htmlspecialchars($data['input']['valuesToDisplay'][0]["categoryName"]); ?></p>
         <table class='catalog'>
             <thead>

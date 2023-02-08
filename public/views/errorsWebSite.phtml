@@ -1,54 +1,50 @@
 <!DOCTYPE html>
 <html lang="fr">
-<!-- page minimaliste utilisé en cas de connexion indisponible à la Db -->
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vincent Petit, apiculteur, éleveur de ses abeilles assure aussi la production artisanale de ses miels et de
-    produits dérivés: aromiels, pains d'épices, nougats et billes de miel. ">
-    <title>Vincent Petit Apiculteur</title>
-    <link rel="icon" href="public/medias/img/favicon_miel.ico">
-    <link rel="stylesheet" href="public/styles/css/style.css">
-</head>
+    <!-- page minimaliste utilisée en cas de connexion indisponible à la Db -->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Vincent Petit, apiculteur, éleveur de ses abeilles assure aussi la production artisanale de ses miels et de
+        produits dérivés: aromiels, pains d'épices, nougats et billes de miel. ">
+        <title>Vincent Petit Apiculteur</title>
+        <link rel="icon" href="public/medias/img/favicon_miel.ico">
+        <link rel="stylesheet" href="public/styles/css/style.css">
+    </head>
 
-<body>
-    <header>
-        <div class="background">
-            <div class="headerHaut wrapper">
-                <img class="alv" src="./public/medias/img/alveole_fond_transparent.png" alt="alveoles stylisées">
-                <div class="logoEtTitre">
-                    <a href="index.php?route=homePage&action=init" class="txtEtLogo">
-                        <img class="imgLogo" src="public/medias/img/logopng.png" alt="logo">
-                        <span>Vincent Petit Apiculteur</span>
-                    </a>
-                </div>
-                <img class="alv" src="./public/medias/img/alveole_fond_transparent.png" alt="alveoles stylisées">
-                <?php if (isset((($_SESSION['user'])['firstName'])) && (!empty($_SESSION['user']))) : ?>
-                    <div class="welcome">
-                        <p>Bienvenue <?= htmlspecialchars((($_SESSION['user'])['firstName'])); ?> <?= htmlspecialchars((($_SESSION['user'])['lastName'])); ?></p>
+    <body>
+        <header>
+            <div class="background">
+                <div class="headerHaut wrapper">
+                    <img class="alv" src="./public/medias/img/alveole_fond_transparent.png" alt="alveoles stylisées">
+                    <div class="logoEtTitre">
+                        <a href="index.php?route=homePage&action=init" class="txtEtLogo">
+                            <img class="imgLogo" src="public/medias/img/logopng.png" alt="logo">
+                            <span>Vincent Petit Apiculteur</span>
+                        </a>
                     </div>
-                <?php endif; ?>
+                    <img class="alv" src="./public/medias/img/alveole_fond_transparent.png" alt="alveoles stylisées">
+                    <?php if (isset((($_SESSION['user'])['firstName'])) && (!empty($_SESSION['user']))) : ?>
+                        <div class="welcome">
+                            <p>Bienvenue <?= htmlspecialchars((($_SESSION['user'])['firstName'])); ?> <?= htmlspecialchars((($_SESSION['user'])['lastName'])); ?></p>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="wrapper">
-        <div class="message">
+        <main class="wrapper">
+            <div class="message">
+                <img src="public/medias/img/warning.gif" alt="Warning">
+                <h1>Erreur Grave</h1>
+                <div class="message"><?= $message ?></div>
+                <p>Veuillez nous excuser pour la gène occasionnée.<br>
+                Contact email : <a href="mailto:<?= ADMIN_ADDRESS ?>"><?= ADMIN_ID ?></a> </p>
+            </div>
+        </main>
 
-            <img src="public/medias/img/warning.gif" alt="Warning">
-            <h1>Erreur Grave</h1>
-            <div class="message"><?= $message ?></div>
-            <p>Veuillez nous excuser pour la gène occasionnée.<br>
-            Contact email : <a href="mailto:<?= ADMIN_ADDRESS ?>"><?= ADMIN_ID ?></a> </p>
-
-        </div>
-    </main>
-
-
-    <footer>
-        <?php require "public/views/footer.inc.phtml" ?>
-    </footer>
-</body>
-
+        <footer>
+            <?php require "public/views/footer.inc.phtml" ?>
+        </footer>
+    </body>
 </html>

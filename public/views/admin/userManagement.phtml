@@ -26,7 +26,7 @@
                     <td><?= htmlspecialchars($valeur["role"]); ?></td>
                     <td><?= htmlspecialchars($valeur["status"]); ?></td>
                     <?php if ((htmlspecialchars($valeur["id_user"]) > 1)&&((htmlspecialchars(($_SESSION['user'])['id']))!== htmlspecialchars($valeur["id_user"]))) : //protection super utilisateur et de l'utilisateur connecté 
-                    ?>
+                        ?>
                         <td>
                             <a class="bouton" href="?route=user&action=modifyUser&id=<?= htmlspecialchars($valeur['id_user']); ?>">Modifier</a>
                         </td>

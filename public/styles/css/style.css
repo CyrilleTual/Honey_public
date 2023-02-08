@@ -459,6 +459,27 @@ img {
     left: 36px;
   }
 }
+.infoBubble {
+  display: inline;
+  cursor: help;
+}
+.infoBubble span {
+  position: absolute;
+  margin-top: -140px;
+  margin-left: 150px;
+  padding: 15px;
+  border-radius: 3px;
+  line-height: 1.5;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: scale(0) rotate(-12deg);
+  transition: all 0.25s;
+}
+.infoBubble:hover span, .infoBubble:focus span {
+  transform: scale(1) rotate(0);
+  opacity: 1;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -856,7 +877,7 @@ footer {
   margin-bottom: 15px;
   padding: 10px;
 }
-.formAdmin label, .formAdmin legend {
+.formAdmin label, .formAdmin legend, .formAdmin .news, .formAdmin .right {
   width: 180px;
   display: inline-block;
   margin: 6px auto;
@@ -1366,7 +1387,7 @@ footer {
 .mentions a {
   text-decoration: underline;
 }
-.mentions p {
+.mentions p, .mentions address {
   padding-left: 2rem;
 }
 
