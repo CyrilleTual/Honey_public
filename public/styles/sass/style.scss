@@ -133,6 +133,7 @@ small{
 **/
 .bouton {
 	text-decoration: none;
+	text-align: center;
 	display: block;
 	padding: 5px 5px;
 	margin: 5px auto;
@@ -143,13 +144,20 @@ small{
 	line-height: 1;
 	border-radius: 12px;
 	border: 1px solid #46a28d;
+
 	&:hover{
-		font-style: oblique;
+		cursor: pointer;
 		background-color: #fff;
-		border: 2px solid #1d5749;
+		border: 2px solid #010b08;
 		padding: 4px;
 	}
+	
 }
+.alert{
+		&:hover{
+		border-color: $color-alert;	
+		}
+	}
 
 .formDelete{
 	margin: auto;
@@ -424,9 +432,10 @@ footer{
 		width: 249px;
 	}
 
-	input.bouton:hover{
-		padding: 3px;
-	}
+	// input.bouton:hover{
+	// 	padding-left: 2px;
+	// 	padding-right: 2px;
+	// }
 	
 	textarea {
 		height: 150px;

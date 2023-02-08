@@ -10,7 +10,7 @@
     </ul>
     <form class="formDelete" action="?route=errors&action=delLogErrors" method="post">
         <input type="hidden" name="token" value="<?= htmlspecialchars($data['input']['token']); ?>">
-        <input type="button" class="bouton input" value="supprimer le fichier de log ?">
+        <input type="button" class="bouton alert" value="supprimer le fichier de log ?">
     </form>
 <?php else : ?>
     <h2> Affichage non autorisé </h2>

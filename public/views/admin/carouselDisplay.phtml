@@ -36,7 +36,7 @@
                         <form class="formDelete" action="?route=carouselsPics&action=deletePic" method="post">
                             <input type="hidden" name="token" value="<?= htmlspecialchars($data['input']['token'][$valeur['id_carousel']]); ?>">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($valeur['id_carousel']); ?>">
-                            <input type="button" class="bouton" value="Supprimer">
+                            <input type="button" class="bouton alert" value="Supprimer">
                         </form>
                     </td>
                 </tr>

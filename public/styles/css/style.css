@@ -575,6 +575,7 @@ small {
 **/
 .bouton {
   text-decoration: none;
+  text-align: center;
   display: block;
   padding: 5px 5px;
   margin: 5px auto;
@@ -587,10 +588,14 @@ small {
   border: 1px solid #46a28d;
 }
 .bouton:hover {
-  font-style: oblique;
+  cursor: pointer;
   background-color: #fff;
-  border: 2px solid #1d5749;
+  border: 2px solid #010b08;
   padding: 4px;
+}
+
+.alert:hover {
+  border-color: red;
 }
 
 .formDelete {
@@ -873,9 +878,6 @@ footer {
 }
 .formAdmin input:not(.bouton), .formAdmin textarea {
   width: 249px;
-}
-.formAdmin input.bouton:hover {
-  padding: 3px;
 }
 .formAdmin textarea {
   height: 150px;

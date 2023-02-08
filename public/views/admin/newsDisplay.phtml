@@ -50,7 +50,7 @@
                         <form class="formDelete" action="?route=news&action=deleteNews" method="post">
                             <input type="hidden" name="token" value="<?= htmlspecialchars($data['input']['token'][$valeur['id_news']]); ?>">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($valeur['id_news']); ?>">
-                            <input type="button" class="bouton" value="supprimer">
+                            <input type="button" class="bouton alert" value="Supprimer">
                         </form>
                     </td>
                 </tr>
