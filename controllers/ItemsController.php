@@ -138,7 +138,6 @@ class ItemsController extends SecurityController
             $data['product'] = $product;
             $data['item'] = $item;
 
-
             // affichage de la vue d'affichage en passant $token qui sera transmis par le render sous $data 
             new RendersController('admin/itemsAddOrModify', $data);
         } else {
@@ -217,7 +216,7 @@ class ItemsController extends SecurityController
                 // 3) controle de la validité de la tva par verification de la validité de l'id  
                 $vatAvailable = $_SESSION['vat'];
                 $idVat = intval($addItem['id_vat']);
-                if (!in_array($idVat, $vatAvailable, true))
+                if (!in_array($idVat, $vatAvailable, false))
                 $errors[] = "Hummm, la TVA semble poser un petit problème ";
 
                 // verification du status

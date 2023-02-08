@@ -13,37 +13,46 @@
         <img class="vignette" src='public/uploads/<?= htmlspecialchars($data['input']['product']['picture']); ?>' alt=" produit">
     </span>
 
+
+
+
+
+
+
+
+
+
+
     <form action="?route=items&action=createItemProcess" method="POST">
 
         <input id="token" name="token" type="hidden" value="<?= htmlspecialchars($data['input']['token']) ?>">
         <input id="idProduct" name="idProduct" type="hidden" value="<?= htmlspecialchars($data['input']['product']['id_product']) ?>">
 
         <!-- cas d'une modification -->
-        <?php if (isset($item['itemRef'])) : ?>
-            <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($item["id_item"]); ?>">
+        <?php if (isset($data['input']['item']['itemRef'])) : ?>
+            <input id="id" name="id" type="hidden" value="<?= htmlspecialchars($data['input']['item']["id_item"]); ?>">
         <?php endif; ?>
-
 
         <fieldset class="formAdmin">
 
             <legend>Merci de renseigner :</legend>
             <div class="grid">
                 <label for="vatRef">Référence </label>
-                <input type="text" name="ref" id="vatRef" minlength="2" maxlength="30" required autofocus value="<?php echo (isset($item['itemRef'])) ? htmlspecialchars($item['itemRef']) : ""; ?>">
+                <input type="text" name="ref" id="vatRef" minlength="2" maxlength="30" required autofocus value="<?php echo (isset($data['input']['item']['itemRef'])) ? htmlspecialchars($data['input']['item']['itemRef']) : ""; ?>">
 
                 <label for="pack">Conditionnement</label>
-                <input type="text" id="pack" name="pack" minlength="2" maxlength="30" required value="<?php echo (isset($item['pack'])) ? htmlspecialchars($item['pack']) : ""; ?>">
+                <input type="text" id="pack" name="pack" minlength="2" maxlength="30" required value="<?php echo (isset($data['input']['item']['pack'])) ? htmlspecialchars($data['input']['item']['pack']) : ""; ?>">
 
                 <label for="price">Prix unitaire</label>
-                <input type="number" id="price" name="price" step="0.01" min="0" max="100000" required value="<?php echo (isset($item['price'])) ? htmlspecialchars($item['price']) : ""; ?>">
+                <input type="number" id="price" name="price" step="0.01" min="0" max="100000" required value="<?php echo (isset($data['input']['item']['price'])) ? htmlspecialchars($data['input']['item']['price']) : ""; ?>">
 
                 <label for="stock">Stock</label>
-                <input type="number" id="stock" name="stock" min="0" max="100000" required value="<?php echo (isset($item['stock'])) ? htmlspecialchars($item['stock']) : ""; ?>">
+                <input type="number" id="stock" name="stock" min="0" max="100000" required value="<?php echo (isset($data['input']['item']['stock'])) ? htmlspecialchars($data['input']['item']['stock']) : ""; ?>">
 
                 <label for="vat">Tva applicable </label>
                 <select name="vat" id="vat">
                     <?php foreach ($data['input']['vatToDisplay'] as $key => $valeur) : ?>
-                        <option value="<?= htmlspecialchars($valeur["id_vat"]); ?>" <?php if ((isset($item['itemRef'])) && (($item["id_vat"]) === ($valeur["id_vat"]))) echo "selected"; ?>>
+                        <option value="<?= htmlspecialchars($valeur["id_vat"]); ?>" <?php if ((isset($data['input']['item']['itemRef'])) && (($data['input']['item']["id_vat"]) === ($valeur["id_vat"]))) echo "selected"; ?>>
                             <?= htmlspecialchars($valeur["name"]); ?>
                         </option>
                     <?php endforeach; ?>
@@ -59,7 +68,7 @@
                     <label class="radio" for="actif">Actif</label>
                     <input type="radio" id="actif" name="status" value="actif" checked>
                     <label class="radio" for="actif">Inactif</label>
-                    <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($item['itemRef'])) && ($item["status"]) === ("inactif")) echo "checked"; ?>>
+                    <input type="radio" id="inactif" name="status" value="inactif" <?php if ((isset($data['input']['item']['itemRef'])) && ($data['input']['item']["status"]) === ("inactif")) echo "checked"; ?>>
                 </div>
             </div>
         </fieldset>

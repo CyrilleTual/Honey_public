@@ -37,7 +37,7 @@
                     </select>
                     <!-- // zone d'affichage du prix -->
                     <span id=<?= "idPrix" . htmlspecialchars($valeur['id_product']); ?>>
-                        <span class="insec spanPrix"> Prix : <?= htmlspecialchars($valeur['items'][0]['price']) ?> Euros</span>
+                        <span class="insec spanPrix"> Prix : <?= htmlspecialchars(number_format($valeur['items'][0]['price'], 2)) ?> Euros</span>
                     </span>
                 <?php endif; ?>
             </div>

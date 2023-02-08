@@ -199,9 +199,12 @@ class ProductsController extends SecurityController
                     $errors[] = "Un problème est survenu lors de l'envoi du formulaire";
 
                 // verification de la validité de l'id de la catégirie 
+
+
                 $catAvailable = $_SESSION['cat'];
-                $id = intval($addProduct['addCat']);
-                if (!in_array($id, $catAvailable, true)) 
+                $id = ($addProduct['addCat']);
+
+                if (!in_array($id, $catAvailable, false)) 
                     $errors[] = "Hummm, la catégorie semble poser un petit problème ";
 
                 if ($addProduct['addName'] == '')
