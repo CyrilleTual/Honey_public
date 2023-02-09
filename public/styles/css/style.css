@@ -1217,10 +1217,18 @@ footer {
   text-align: center;
 }
 .pageZoom img {
-  width: 250px;
-  height: auto;
-  float: left;
-  margin-right: 2rem;
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media screen and (min-width: 420px) {
+  .pageZoom img {
+    width: 250px;
+    height: auto;
+    float: left;
+    margin-right: 2rem;
+  }
 }
 .pageZoom .center {
   text-align: center;

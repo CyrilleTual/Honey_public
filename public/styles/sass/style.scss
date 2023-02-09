@@ -774,10 +774,16 @@ footer{
 		text-align: center;
 	}
 	img{
-		width: 250px;
-		height: auto;
-		float:left;
-		margin-right: $pad;
+		width: 80%;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		@media screen and (min-width: 420px){  
+			width: 250px;
+			height: auto;
+			float:left;
+			margin-right: $pad;    
+		}
 	}
 	.center{
 		text-align: center;
