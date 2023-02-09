@@ -27,18 +27,14 @@
             <div class="price">
                 <!-- verification de l'existance d'items actifs -->
                 <?php if (!empty($valeur['items'])) : ?>
-                    Conditionnement :
-                    <?php if (count($valeur['items']) == 1) : ?>
-                        <?= htmlspecialchars ($valeur['items'][0]['pack']); ?>
-                    <?php else : ?>
-                        <select class='selectItems' name='item' id=<?= "idFormItem" . htmlspecialchars($valeur['id_product']); ?>>
-                            <?php foreach ($valeur['items'] as $key => $item) : ?>
-                                <?php if ($valeur['id_product'] == $item['id_product']) : ?>
-                                    <option value="<?= htmlspecialchars($item["id_item"]); ?>"><?= htmlspecialchars($item["pack"]); ?></option>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </select>
-                    <?php endif; ?>
+                    Conditionnement&nbsp;:
+                    <select class='selectItems' name='item' id=<?= "idFormItem" . htmlspecialchars($valeur['id_product']); ?>>
+                        <?php foreach ($valeur['items'] as $key => $item) : ?>
+                            <?php if ($valeur['id_product'] == $item['id_product']) : ?>
+                                <option value="<?= htmlspecialchars($item["id_item"]); ?>"><?= htmlspecialchars($item["pack"]); ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
                     <!-- // zone d'affichage du prix -->
                     <span id=<?= "idPrix" . htmlspecialchars($valeur['id_product']); ?>>
                         <span class="insec spanPrix"> Prix : <?= htmlspecialchars(number_format($valeur['items'][0]['price'], 2)) ?> Euros</span>

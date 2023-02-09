@@ -9,18 +9,9 @@
         <h2>Produit : <?= htmlspecialchars($data['input']['product']["productName"]); ?></h2>
     </div>
 
-    <span class="modal-trigger zoom">
+    <span class="modal-trigger">
         <img class="vignette" src='public/uploads/<?= htmlspecialchars($data['input']['product']['picture']); ?>' alt=" produit">
     </span>
-
-
-
-
-
-
-
-
-
 
 
     <form action="?route=items&action=createItemProcess" method="POST">
