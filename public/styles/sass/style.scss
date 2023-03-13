@@ -32,13 +32,13 @@ header, footer {
 .background{
 	background-image: 
 		linear-gradient(
-        rgba(255,255,255,0.7), 
-    	rgba(255,255,255,0.9), 
+        rgba(255,255,255,0.2), 
+    	rgba(255,255,255,0.3, 
      	),
 		url("../../medias/img/bg_header1.jpeg");
 	background-size: cover;
   	background-position: center bottom;	
-	border-bottom: solid 1px $color-3;
+	border-bottom: solid 2px $color-3;
 }
 
 .wrapper {

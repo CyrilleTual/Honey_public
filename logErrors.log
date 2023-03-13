@@ -1,6 +1,0 @@
-*** Le 06.02.2023 05:24:35 Erreur: SQLSTATE[HY000] [1045] Access denied for user 'root'@'172.18.0.3' (using password: YES)
-*** Le 06.02.2023 05:24:38 Erreur: SQLSTATE[HY000] [1045] Access denied for user 'root'@'172.18.0.3' (using password: YES)
-*** Le 06.02.2023 05:26:24 Erreur: SQLSTATE[HY000] [1049] Unknown database 'honcy'
-*** Le 07.02.2023 09:33:24 Erreur: SQLSTATE[HY000] [1045] Access denied for user 'root'@'172.18.0.3' (using password: YES)
-*** Le 08.02.2023 11:25:33 Erreur: SQLSTATE[HY000] [1045] Access denied for user 'root'@'172.18.0.3' (using password: YES)
-*** Le 08.02.2023 11:25:38 Erreur: SQLSTATE[HY000] [1045] Access denied for user 'root'@'172.18.0.3' (using password: YES)
