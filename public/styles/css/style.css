@@ -504,7 +504,7 @@ header, footer {
 }
 
 .background {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2)), url("../../medias/img/bg_header1.jpeg");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.3)), url("../../medias/img/bg_header1.jpeg");
   background-size: cover;
   background-position: center bottom;
   border-bottom: solid 2px rgb(240, 200, 16);
