@@ -6,25 +6,11 @@ La distribution des produits est assurée par un réseau de magasins partenaires
  MAIS Vincent Petit souhaite que l'on  puisse éventuellement faire évoluer vers des fonctionnalités de site marchand.
 Le projet a été mené dans ce sens. 
 
-
-Adresse du site : https://cyrilletual.sites.3wa.io/projet/index.php
-Accès administrateur : https://cyrilletual.sites.3wa.io/projet/index.php?view=jesuisadminetjemeK@neckt
-
-Compte administrateur de demo : gogo@gmail.com  / Admin@1234
-Possibilité de créer un compte par le lien administrateur (à terme sera intégré dans la barre de navigation)
-Celui-ci sera par défaut un compte client (modifiable depuis un compte admin)
-
-Site en fonction (version en attente de validation) : https://vincentpetit.000webhostapp.com/index.php
+Site en fonction : https://vincentpetit.000webhostapp.com/index.php
 
 Attention : lors de l'accès administrateur il y aura un message avertissant des dernières erreurs "graves"
 Ceci est uniquement pour montrer cette fonctionnalité de log des erreurs, vous pouvez vider ce fichier par 
 Administration -> Erreurs -> Supprimer le fichier de log 
-
-Il y a un répertoire "3WaPourCorrecteur" avec 
-- un export de la base (honey.sql) 
-- deux captures d'écran de la structure de la base : celle en utilisation aujourd’hui (structure_projet.jpg)
-et celle de la structure à terme (évolution vers site marchand) (structure_base_complete.jpg)
-
 
 
 
