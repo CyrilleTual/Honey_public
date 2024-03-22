@@ -243,6 +243,7 @@ if(document.querySelectorAll(".formDelete")!== null){
     });
   });
 }
+
 /**
  * Pour voir en clair password
  */

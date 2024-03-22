@@ -26,7 +26,6 @@ class Router
             $nomfichier = str_replace("\\", "/", "controllers\\$strReplaceUp" . 'Controller.php'); // pour en vérifier l'existence
 
             if (file_exists($nomfichier)) {  // le controlleur existe 
-
                 $controller = "controllers\\$strReplaceUp" . "Controller";
                 $classFinal = new $controller();
                 if (!empty($this->getAction()) && $this->getAction() !== null) {  // si une action est définie 
