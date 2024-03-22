@@ -10,5 +10,5 @@ return [
     'db_utf'   => 'utf8',
     'dbname'   => 'honey',
     'username' => 'root',
-    'password' => '78604'
+    'password' => '********'
 ];
