@@ -13,6 +13,37 @@ Ceci est uniquement pour montrer cette fonctionnalité de log des erreurs, vous 
 Administration -> Erreurs -> Supprimer le fichier de log 
 
 
+files to set in the config folder :
+
+config.php :
+<?php
+
+declare(strict_types=1);
+
+// pour mail sur erreur grave ( page errorsWebSite.phtml)
+const ADMIN_ADDRESS = '************************';
+const ADMIN_ID = '************';
+
+?>
+
+database_dist.php 
+
+<?php
+
+// variables de connexion à adapter selon la configuration 
+// utilisées par Models/Model 
+
+return [
+  'host'     => 'www_mysql_projet',
+  'port'     => '3306',
+  'db_utf'   => 'utf8',
+  'dbname'   => 'honey',
+  'username' => '***',
+  'password' => '********'
+];
+
+?>
+
 
 - Utilisation des méthodes de la classe Model :
 
