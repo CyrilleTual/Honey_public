@@ -17,12 +17,12 @@ jobs:
         echo -e "${{ secrets.SSH_PRIVATE_KEY }}" >__TEMP_INPUT_KEY_FILE
         chmod 600 __TEMP_INPUT_KEY_FILE
         
-        #install -m 600 -D /dev/null ~/.ssh/id_rsa
-        #echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        #ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        # install -m 600 -D /dev/null ~/.ssh/id_rsa
+        # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        # ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: connect and pull
-      #run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
+      # run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
       run: ssh -o StrictHostKeyChecking=no -i __TEMP_INPUT_KEY_FILE -p 22 "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
     - name: cleanup
-      #run: rm -rf ~/.ssh
+      # run: rm -rf ~/.ssh
       run: rm __TEMP_INPUT_KEY_FILE
