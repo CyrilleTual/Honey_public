@@ -14,7 +14,7 @@ jobs:
       # check this thread to understand why its needed:
       # https://stackoverflow.com/a/70447517
       run: |
-        echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > __TEMP_INPUT_KEY_FILE
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > __TEMP_INPUT_KEY_FILE
         chmod 600 __TEMP_INPUT_KEY_FILE
         
         # install -m 600 -D /dev/null ~/.ssh/id_rsa
