@@ -26,7 +26,7 @@ const ADMIN_ADDRESS = '************************';
 const ADMIN_ID = '************';
 
 ?>
-``
+```
 
 
 database_dist.php 
