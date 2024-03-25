@@ -16,7 +16,7 @@ Administration -> Erreurs -> Supprimer le fichier de log
 files to set in the config folder :
 
 config.php :
----
+```php
 <?php
 
 declare(strict_types=1);
@@ -26,9 +26,12 @@ const ADMIN_ADDRESS = '************************';
 const ADMIN_ID = '************';
 
 ?>
----
+``
+
+
 database_dist.php 
 ---
+```php
 <?php
 
 // variables de connexion à adapter selon la configuration 
@@ -43,7 +46,9 @@ return [
 ];
 
 ?>
----
+````
+
+
 
 - Utilisation des méthodes de la classe Model :
 
