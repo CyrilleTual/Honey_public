@@ -1,2 +1,6 @@
 *.mp4
 .DS_store
+
+# exclude all files in the config repository
+config/**/*
+
