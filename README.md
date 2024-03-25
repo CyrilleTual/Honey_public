@@ -13,9 +13,10 @@ Ceci est uniquement pour montrer cette fonctionnalité de log des erreurs, vous 
 Administration -> Erreurs -> Supprimer le fichier de log 
 
 
-files to set in the config folder :
+files to set in a config folder :
 
 config.php :
+---
 ```php
 <?php
 
