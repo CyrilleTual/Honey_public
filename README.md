@@ -33,7 +33,6 @@ database_dist.php
 
 // variables de connexion à adapter selon la configuration 
 // utilisées par Models/Model 
-
 return [
   'host'     => 'www_mysql_projet',
   'port'     => '3306',
